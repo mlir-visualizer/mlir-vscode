@@ -1,0 +1,25 @@
+{
+    "name": "mlir",
+    "displayName": "mlir-vscode",
+    "description": "Machine Learning Intermediate Representation",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.42.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "mlir",
+            "aliases": ["MLIR", "mlir"],
+            "extensions": [".mlir"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "mlir",
+            "scopeName": "source.mlir",
+            "path": "./syntaxes/mlir.json"
+        }]
+    }
+}
