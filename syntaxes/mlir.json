@@ -3,6 +3,10 @@
     "mlir"
   ],
   "repository":{
+    "affine-for": {
+      "match": "affine.for",
+      "name":"entity.name.function.mlir.affine-for"
+    },
     "attribute":{
       "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
       "name":"meta.attribute.mlir"
@@ -105,6 +109,9 @@
     },
     {
       "include":"#integer"
+    },
+    {
+      "include":"#affine-for"
     }
   ],
   "name":"MLIR",
