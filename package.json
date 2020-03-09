@@ -1,7 +1,7 @@
 {
     "name": "mlir",
-    "displayName": "mlir-vscode",
-    "description": "Machine Learning Intermediate Representation",
+    "displayName": "MLIR Highlighting for VSCode",
+    "description": "Syntax highlighting support for Machine Learning Intermediate Representation",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.42.0"
@@ -21,5 +21,9 @@
             "scopeName": "source.mlir",
             "path": "./syntaxes/mlir.json"
         }]
+    },
+    "publisher": "MLIRVisualizer",
+    "repository": {
+        "url": "https://github.com/mlir-visualizer/mlir-vscode"
     }
 }
