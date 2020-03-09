@@ -28,3 +28,6 @@ This extension contributes the following settings:
 ### 1.0.0
 
 WIP
+
+## Credits
+* Base MLIR Grammar Rules - [Jacques Pienaar](https://github.com/jpienaar/mlir-grammar)
