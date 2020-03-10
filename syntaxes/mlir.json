@@ -4,8 +4,40 @@
   ],
   "repository":{
     "affine-for": {
-      "match": "affine.for",
+      "match": "\\baffine\\.for\\b",
       "name":"entity.name.function.mlir.affine-for"
+    },
+    "affine-apply":{
+      "match": "\\baffine\\.apply\\b",
+      "name":"entity.name.function.mlir.affine-apply"
+    },
+    "affine-if":{
+      "match": "\\baffine\\.if\\b",
+      "name": "entity.name.function.mlir.affine-if"
+    },
+    "affine-else":{
+      "match": "\\belse\\b",
+      "name": "entity.name.function.mlir.affine-else"
+    },
+    "affine-load":{
+      "match":"\\baffine\\.load\\b",
+      "name":"entity.name.function.mlir.affine-load"
+    },
+    "affine-store":{
+      "match": "\\baffine\\.store\\b",
+      "name": "entity.name.function.mlir.affine-store"
+    },
+    "affine-dma_start":{
+      "match": "\\baffine\\.dma_start\\b",
+      "name": "entity.name.function.mlir.affine-dma_start"
+    },
+    "affine-dma_wait":{
+      "match": "\\baffine\\.dma_wait\\b",
+      "name":"entity.name.function.mlir.affine-dma_wait"
+    },
+    "affine-min":{
+      "match": "\\baffine\\.min\\b",
+      "name":"entity.name.function.mlir.affine-min"
     },
     "attribute":{
       "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
@@ -112,6 +144,30 @@
     },
     {
       "include":"#affine-for"
+    },
+    {
+      "include":"#affine-apply"
+    },
+    {
+      "include":"#affine-if"
+    },
+    {
+      "include":"#affine-else"
+    },
+    {
+      "include": "#affine-load"
+    },
+    {
+      "include": "#affine-store"
+    },
+    {
+      "include": "#affine-dma_start"
+    },
+    {
+      "include": "#affine-dma_wait"
+    },
+    {
+      "include": "#affine-min"
     }
   ],
   "name":"MLIR",
