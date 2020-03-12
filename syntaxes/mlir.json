@@ -39,6 +39,26 @@
       "match": "\\baffine\\.min\\b",
       "name":"entity.name.function.mlir.affine-min"
     },
+    "affine-max":{
+      "match": "\\baffine\\.max\\b",
+      "name": "entity.name.function.mlir.affine-max"
+    },
+    "affine-parallel":{
+      "match": "\\baffine\\.parallel\\b",
+      "name": "entity.name.function.mlir.affine-parallel"
+    },
+    "affine-prefetch":{
+      "match": "\\baffine\\.prefetch\\b",
+      "name": "entity.name.function.mlir.affine-prefetch"
+    },
+    "affine_map":{
+      "match": "\\baffine_map\\b",
+      "name": "entity.name.function.mlir.affine_map"
+    },
+    "affine_set":{
+      "match": "\\baffine_set\\b",
+      "name": "entity.name.function.mlir.affine_set"
+    },
     "attribute":{
       "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
       "name":"meta.attribute.mlir"
@@ -168,6 +188,21 @@
     },
     {
       "include": "#affine-min"
+    },
+    {
+      "include": "#affine-max"
+    },
+    {
+      "include":"#affine-parallel"
+    },
+    {
+      "include":"#affine-prefetch"
+    },
+    {
+      "include":"#affine_map"
+    },
+    {
+      "include":"#affine_set"
     }
   ],
   "name":"MLIR",
