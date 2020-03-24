@@ -3,62 +3,6 @@
     "mlir"
   ],
   "repository":{
-    "affine-for": {
-      "match": "\\baffine\\.for\\b",
-      "name":"entity.name.function.mlir.affine-for"
-    },
-    "affine-apply":{
-      "match": "\\baffine\\.apply\\b",
-      "name":"entity.name.function.mlir.affine-apply"
-    },
-    "affine-if":{
-      "match": "\\baffine\\.if\\b",
-      "name": "entity.name.function.mlir.affine-if"
-    },
-    "affine-else":{
-      "match": "\\belse\\b",
-      "name": "entity.name.function.mlir.affine-else"
-    },
-    "affine-load":{
-      "match":"\\baffine\\.load\\b",
-      "name":"entity.name.function.mlir.affine-load"
-    },
-    "affine-store":{
-      "match": "\\baffine\\.store\\b",
-      "name": "entity.name.function.mlir.affine-store"
-    },
-    "affine-dma_start":{
-      "match": "\\baffine\\.dma_start\\b",
-      "name": "entity.name.function.mlir.affine-dma_start"
-    },
-    "affine-dma_wait":{
-      "match": "\\baffine\\.dma_wait\\b",
-      "name":"entity.name.function.mlir.affine-dma_wait"
-    },
-    "affine-min":{
-      "match": "\\baffine\\.min\\b",
-      "name":"entity.name.function.mlir.affine-min"
-    },
-    "affine-max":{
-      "match": "\\baffine\\.max\\b",
-      "name": "entity.name.function.mlir.affine-max"
-    },
-    "affine-parallel":{
-      "match": "\\baffine\\.parallel\\b",
-      "name": "entity.name.function.mlir.affine-parallel"
-    },
-    "affine-prefetch":{
-      "match": "\\baffine\\.prefetch\\b",
-      "name": "entity.name.function.mlir.affine-prefetch"
-    },
-    "affine_map":{
-      "match": "\\baffine_map\\b",
-      "name": "entity.name.function.mlir.affine_map"
-    },
-    "affine_set":{
-      "match": "\\baffine_set\\b",
-      "name": "entity.name.function.mlir.affine_set"
-    },
     "attribute":{
       "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
       "name":"meta.attribute.mlir"
@@ -122,15 +66,128 @@
         }
       },
       "name":"meta.types.simple.mlir"
+    },
+    "affine-for": {
+      "match": "\\baffine\\.for\\b",
+      "name":"entity.name.function.mlir.affine-for"
+    },
+    "affine-apply":{
+      "match": "\\baffine\\.apply\\b",
+      "name":"entity.name.function.mlir.affine-apply"
+    },
+    "affine-if":{
+      "match": "\\baffine\\.if\\b",
+      "name": "entity.name.function.mlir.affine-if"
+    },
+    "affine-else":{
+      "match": "\\belse\\b",
+      "name": "entity.name.function.mlir.affine-else"
+    },
+    "affine-load":{
+      "match":"\\baffine\\.load\\b",
+      "name":"entity.name.function.mlir.affine-load"
+    },
+    "affine-store":{
+      "match": "\\baffine\\.store\\b",
+      "name": "entity.name.function.mlir.affine-store"
+    },
+    "affine-dma_start":{
+      "match": "\\baffine\\.dma_start\\b",
+      "name": "entity.name.function.mlir.affine-dma_start"
+    },
+    "affine-dma_wait":{
+      "match": "\\baffine\\.dma_wait\\b",
+      "name":"entity.name.function.mlir.affine-dma_wait"
+    },
+    "affine-min":{
+      "match": "\\baffine\\.min\\b",
+      "name":"entity.name.function.mlir.affine-min"
+    },
+    "affine-max":{
+      "match": "\\baffine\\.max\\b",
+      "name": "entity.name.function.mlir.affine-max"
+    },
+    "affine-parallel":{
+      "match": "\\baffine\\.parallel\\b",
+      "name": "entity.name.function.mlir.affine-parallel"
+    },
+    "affine-prefetch":{
+      "match": "\\baffine\\.prefetch\\b",
+      "name": "entity.name.function.mlir.affine-prefetch"
+    },
+    "affine_map":{
+      "match": "\\baffine_map\\b",
+      "name": "entity.name.function.mlir.affine_map"
+    },
+    "affine_set":{
+      "match": "\\baffine_set\\b",
+      "name": "entity.name.function.mlir.affine_set"
+    },
+    "CHECK":{
+      "match":"(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
+      "captures":{
+        "1":{
+          "name": "comment.line.double-slash.mlir"
+        },
+        "2":{
+          "name": "comment.other.CHECK.mlir"
+        },
+        "3":{
+          "patterns":[{
+            "include": "#CHECK-CODE"
+          }]
+        },
+        "name": "comment.other.CHECK.mlir"
+      }
+    },
+    "CHECK-CODE":{
+      "match":"([^0-9a-zA-Z%\"]*)?([0-9a-zA-Z\"\\.%_\\-]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
+      "captures":{
+        "1":{
+          "name": "comment.line.double-slash.mlir"
+        },
+        "2":{
+          "patterns":[{
+            "include": "$self"
+          },
+          {
+            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|memref|tensor|vector)\\b",
+            "captures":{
+              "1":{
+                "name": "comment.line.double-slash.mlir"
+              },
+              "2":{
+                "name":"storage.type.mlir"
+              }
+            }
+          },
+          {
+            "match":"\\b([0-9]+)(x.*)?",
+            "captures":{
+              "1":{
+                "name":"constant.numeric.mlir"
+              },
+              "2":{
+                "patterns":[{
+                  "include": "$self"
+                }]
+              }
+            }
+          },
+          {
+            "match":"(.*)",
+            "name": "comment.line.double-slash.mlir"
+          }]
+        },
+        "3":{
+          "patterns":[{
+            "include": "#CHECK-CODE"
+          }]
+        }
+      }
     }
   },
   "patterns":[
-    {
-      "include":"#comment"
-    },
-    {
-      "include":"#string"
-    },
     {
       "match":"\\b(func)\\b\\s*(@[\\w_][\\w\\d_.$]*)",
       "captures":{
@@ -164,6 +221,7 @@
     },
     {
       "include":"#affine-for"
+      
     },
     {
       "include":"#affine-apply"
@@ -203,6 +261,15 @@
     },
     {
       "include":"#affine_set"
+    },
+    {
+      "include":"#CHECK"
+    },
+    {
+      "include":"#comment"
+    },
+    {
+      "include":"#string"
     }
   ],
   "name":"MLIR",
