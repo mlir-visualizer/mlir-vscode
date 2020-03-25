@@ -151,7 +151,7 @@
             "include": "$self"
           },
           {
-            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|memref|tensor|vector)\\b",
+            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|memref|tensor|vector|func)\\b",
             "captures":{
               "1":{
                 "name": "comment.line.double-slash.mlir"
@@ -185,6 +185,59 @@
           }]
         }
       }
+    },
+    "llvmType":{
+      "match":"(^!llvm|\\s!llvm)[\\.<]",
+      "captures":{
+        "1":{
+          "name": "variable.mlir"
+        }
+      },
+      "name": "meta.types.llvm.mlir"
+    },
+    "llvmFunc":{
+      "match":"\\bllvm\\.func\\b",
+      "name": "keyword.function.llvm"
+    },
+    "llvmReturn":{
+      "match": "\\bllvm\\.return\\b",
+      "name": "keyword.return.llvm"
+    },
+    "llvmIntArith":{
+      "match": "\\bllvm\\.(add|sub|mul|udiv|sdiv|urem|srem)\\b",
+      "name":"entity.name.function.mlir.llvmIntArithm"
+    },
+    "llvmFloatArith":{
+      "match": "\\bllvm\\.(fadd|fsub|fmul|fdiv|frem)\\b",
+      "name": "entity.name.function.mlir.llvmFloatArith"
+    },
+    "llvmMemOp":{
+      "match": "\\bllvm\\.(alloca|getelementptr|load|store)\\b",
+      "name": "entity.name.function.mlir.llvmMemOp"
+    },
+    "llvmAggregateOp":{
+      "match": "\\bllvm\\.(extractvalue|insertvalue)\\b",
+      "name":"entity.name.function.mlir.llvmAggregateOp"
+    },
+    "llvmTerminatorOp":{
+      "match": "\\bllvm\\.(br|cond_br|call)\\b",
+      "name":"entity.name.function.mlir.llvmTerminatorOp"
+    },
+    "llvmComparison":{
+      "match":"\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select)\\b",
+      "name":"entity.name.function.mlir.llvmComparison"
+    },
+    "llvmMLIR":{
+      "match":"\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
+      "captures":{
+        "1":{
+          "name":"keyword.other.llvm"
+        },
+        "2":{
+          "name":"entity.name.function.mlir.auxilary"
+        }
+      },
+      "name":"meta.llvm.mlirAuxilary"
     }
   },
   "patterns":[
@@ -264,6 +317,36 @@
     },
     {
       "include":"#CHECK"
+    },
+    {
+      "include":"#llvmType"
+    },
+    {
+      "include": "#llvmFunc"
+    },
+    {
+      "include": "#llvmReturn"
+    },
+    {
+      "include": "#llvmIntArith"
+    },
+    {
+      "include": "#llvmFloatArith"
+    },
+    {
+      "include": "#llvmMemOp"
+    },
+    {
+      "include": "#llvmAggregateOp"
+    },
+    {
+      "include": "#llvmTerminatorOp"
+    },
+    {
+      "include": "#llvmComparison"
+    },
+    {
+      "include": "#llvmMLIR"
     },
     {
       "include":"#comment"
