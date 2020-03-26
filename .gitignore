@@ -1,1 +1,6 @@
 *.vsix
+.vscode/*
+!.vscode/launch.json
+
+# For Mac:
+.DS_Store
