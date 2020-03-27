@@ -59,7 +59,7 @@
       "name":"string.quoted.double.mlir"
     },
     "types":{
-      "match":"[\\Wx](index|i[1-9][0-9]*|f16|bf16|f32|f64|memref|tensor|vector)\\b",
+      "match":"[\\Wx](index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector)\\b",
       "captures":{
         "1":{
           "name":"storage.type.mlir"
@@ -68,7 +68,7 @@
       "name":"meta.types.simple.mlir"
     },
     "memref-size":{
-      "match":"(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64)\\b",
+      "match":"(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8)\\b",
       "name":"storage.type.mlir.size"
     },
     "affine-for": {
@@ -155,7 +155,7 @@
             "include": "$self"
           },
           {
-            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|memref|tensor|vector|func)\\b",
+            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector|func)\\b",
             "captures":{
               "1":{
                 "name": "comment.line.double-slash.mlir"
