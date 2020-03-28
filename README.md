@@ -12,7 +12,7 @@ Additionally, it supports the following dialects:
 
 **N/A**
 
-If you discover any issues, you can create an issue in the [Github repo](https://github.com/mlir-visualizer/mlir-vscode)
+If you discover any issues, you can create an issue in the [GitHub repo](https://github.com/mlir-visualizer/mlir-vscode)
 
 ## Release Notes
 
