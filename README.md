@@ -4,24 +4,15 @@
 
 This extension adds support for MLIR syntax highlighting in VSCode
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+Additionally, it supports the following dialects:
+- Affine Dialect
+- LLVM IR Dialect
 
 ## Known Issues
 
 **N/A**
+
+If you discover any issues, you can create an issue in the [Github repo](https://github.com/mlir-visualizer/mlir-vscode)
 
 ## Release Notes
 
