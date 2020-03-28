@@ -3,6 +3,74 @@
     "mlir"
   ],
   "repository":{
+    "attribute":{
+      "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
+      "name":"meta.attribute.mlir"
+    },
+    "branch_target":{
+      "match":"\\^bb[\\w\\d_$\\.-]+",
+      "name":"entity.name.label.mlir"
+    },
+    "comment":{
+      "match":"\/\/.*$",
+      "name":"comment.line.double-slash.mlir"
+    },
+    "identifier":{
+      "match":"[\\%#@][\\w_][\\w\\d_.$]*",
+      "captures":{
+        "0":{
+          "name":"variable.mlir"
+        }
+      },
+      "name":"meta.identifier.mlir"
+    },
+    "integer":{
+      "match":"[\\W]([0-9]+)(?!x|[0-9])",
+      "captures":{
+        "1":{
+          "name":"constant.numeric.mlir"
+        }
+      },
+      "name":"meta.identifier.mlir"
+    },
+    "string":{
+      "end":"\"",
+      "begin":"\"",
+      "beginCaptures":{
+        "0":{
+          "name":"punctuation.definition.string.begin.mlir"
+        }
+      },
+      "patterns":[
+        {
+          "match":"\\\\[nt\"]",
+          "name":"constant.character.escape.mlir"
+        },
+        {
+          "match":"\\\\.",
+          "name":"invalid.illegal.mlir"
+        }
+      ],
+      "endCaptures":{
+        "0":{
+          "name":"punctuation.definition.string.end.mlir"
+        }
+      },
+      "name":"string.quoted.double.mlir"
+    },
+    "types":{
+      "match":"[\\Wx](index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector)\\b",
+      "captures":{
+        "1":{
+          "name":"storage.type.mlir"
+        }
+      },
+      "name":"meta.types.simple.mlir"
+    },
+    "memref-size":{
+      "match":"(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8)\\b",
+      "name":"storage.type.mlir.size"
+    },
     "affine-for": {
       "match": "\\baffine\\.for\\b",
       "name":"entity.name.function.mlir.affine-for"
@@ -59,78 +127,124 @@
       "match": "\\baffine_set\\b",
       "name": "entity.name.function.mlir.affine_set"
     },
-    "attribute":{
-      "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
-      "name":"meta.attribute.mlir"
-    },
-    "branch_target":{
-      "match":"\\^bb[\\w\\d_$\\.-]+",
-      "name":"entity.name.label.mlir"
-    },
-    "comment":{
-      "match":"\/\/.*$",
-      "name":"comment.line.double-slash.mlir"
-    },
-    "identifier":{
-      "match":"[\\%#@][\\w_][\\w\\d_.$]*",
-      "captures":{
-        "0":{
-          "name":"variable.mlir"
-        }
-      },
-      "name":"meta.identifier.mlir"
-    },
-    "integer":{
-      "match":"[\\Wx]([0-9]+)",
+    "CHECK":{
+      "match":"(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
       "captures":{
         "1":{
-          "name":"constant.numeric.mlir"
-        }
-      },
-      "name":"meta.identifier.mlir"
-    },
-    "string":{
-      "end":"\"",
-      "begin":"\"",
-      "beginCaptures":{
-        "0":{
-          "name":"punctuation.definition.string.begin.mlir"
-        }
-      },
-      "patterns":[
-        {
-          "match":"\\\\[nt\"]",
-          "name":"constant.character.escape.mlir"
+          "name": "comment.line.double-slash.mlir"
         },
-        {
-          "match":"\\\\.",
-          "name":"invalid.illegal.mlir"
-        }
-      ],
-      "endCaptures":{
-        "0":{
-          "name":"punctuation.definition.string.end.mlir"
-        }
-      },
-      "name":"string.quoted.double.mlir"
+        "2":{
+          "name": "comment.other.CHECK.mlir"
+        },
+        "3":{
+          "patterns":[{
+            "include": "#CHECK-CODE"
+          }]
+        },
+        "name": "comment.other.CHECK.mlir"
+      }
     },
-    "types":{
-      "match":"[\\Wx](index|i[1-9][0-9]*|f16|bf16|f32|f64|memref|tensor|vector)\\b",
+    "CHECK-CODE":{
+      "match":"([^0-9a-zA-Z%\"]*)?([0-9a-zA-Z\"\\.%_\\-]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
       "captures":{
         "1":{
-          "name":"storage.type.mlir"
+          "name": "comment.line.double-slash.mlir"
+        },
+        "2":{
+          "patterns":[{
+            "include": "$self"
+          },
+          {
+            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector|func)\\b",
+            "captures":{
+              "1":{
+                "name": "comment.line.double-slash.mlir"
+              },
+              "2":{
+                "name":"storage.type.mlir"
+              }
+            }
+          },
+          {
+            "match":"\\b([0-9]+)(x.*)?",
+            "captures":{
+              "1":{
+                "name":"constant.numeric.mlir"
+              },
+              "2":{
+                "patterns":[{
+                  "include": "$self"
+                }]
+              }
+            }
+          },
+          {
+            "match":"(.*)",
+            "name": "comment.line.double-slash.mlir"
+          }]
+        },
+        "3":{
+          "patterns":[{
+            "include": "#CHECK-CODE"
+          }]
+        }
+      }
+    },
+    "llvmType":{
+      "match":"(^!llvm|\\s!llvm)[\\.<]",
+      "captures":{
+        "1":{
+          "name": "variable.mlir"
         }
       },
-      "name":"meta.types.simple.mlir"
+      "name": "meta.types.llvm.mlir"
+    },
+    "llvmFunc":{
+      "match":"\\bllvm\\.func\\b",
+      "name": "keyword.function.llvm"
+    },
+    "llvmReturn":{
+      "match": "\\bllvm\\.return\\b",
+      "name": "keyword.return.llvm"
+    },
+    "llvmIntArith":{
+      "match": "\\bllvm\\.(add|sub|mul|udiv|sdiv|urem|srem)\\b",
+      "name":"entity.name.function.mlir.llvmIntArithm"
+    },
+    "llvmFloatArith":{
+      "match": "\\bllvm\\.(fadd|fsub|fmul|fdiv|frem)\\b",
+      "name": "entity.name.function.mlir.llvmFloatArith"
+    },
+    "llvmMemOp":{
+      "match": "\\bllvm\\.(alloca|getelementptr|load|store)\\b",
+      "name": "entity.name.function.mlir.llvmMemOp"
+    },
+    "llvmAggregateOp":{
+      "match": "\\bllvm\\.(extractvalue|insertvalue)\\b",
+      "name":"entity.name.function.mlir.llvmAggregateOp"
+    },
+    "llvmTerminatorOp":{
+      "match": "\\bllvm\\.(br|cond_br|call)\\b",
+      "name":"entity.name.function.mlir.llvmTerminatorOp"
+    },
+    "llvmComparison":{
+      "match":"\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select)\\b",
+      "name":"entity.name.function.mlir.llvmComparison"
+    },
+    "llvmMLIR":{
+      "match":"\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
+      "captures":{
+        "1":{
+          "name":"keyword.other.llvm"
+        },
+        "2":{
+          "name":"entity.name.function.mlir.auxilary"
+        }
+      },
+      "name":"meta.llvm.mlirAuxilary"
     }
   },
   "patterns":[
-    {
-      "include":"#comment"
-    },
-    {
-      "include":"#string"
-    },
     {
       "match":"\\b(func)\\b\\s*(@[\\w_][\\w\\d_.$]*)",
       "captures":{
@@ -155,6 +269,9 @@
     },
     {
       "include":"#attribute"
+    },
+    {
+      "include":"#memref-size"
     },
     {
       "include":"#types"
@@ -203,6 +320,45 @@
     },
     {
       "include":"#affine_set"
+    },
+    {
+      "include":"#CHECK"
+    },
+    {
+      "include":"#llvmType"
+    },
+    {
+      "include": "#llvmFunc"
+    },
+    {
+      "include": "#llvmReturn"
+    },
+    {
+      "include": "#llvmIntArith"
+    },
+    {
+      "include": "#llvmFloatArith"
+    },
+    {
+      "include": "#llvmMemOp"
+    },
+    {
+      "include": "#llvmAggregateOp"
+    },
+    {
+      "include": "#llvmTerminatorOp"
+    },
+    {
+      "include": "#llvmComparison"
+    },
+    {
+      "include": "#llvmMLIR"
+    },
+    {
+      "include":"#comment"
+    },
+    {
+      "include":"#string"
     }
   ],
   "name":"MLIR",

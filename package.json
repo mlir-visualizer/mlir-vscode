@@ -2,7 +2,7 @@
     "name": "mlir",
     "displayName": "MLIR Highlighting for VSCode",
     "description": "Syntax highlighting support for Machine Learning Intermediate Representation",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.42.0"
     },
@@ -22,7 +22,7 @@
             "path": "./syntaxes/mlir.json"
         }]
     },
-    "publisher": "MLIRVisualizer",
+    "publisher": "MomenAbdelkarim-WyattCalandro-LuisPrieto",
     "repository": {
         "url": "https://github.com/mlir-visualizer/mlir-vscode"
     }
