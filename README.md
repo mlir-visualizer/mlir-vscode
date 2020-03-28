@@ -18,7 +18,10 @@ If you discover any issues, you can create an issue in the [GitHub repo](https:/
 
 ### 1.0.0
 
-WIP
+This first version of the extension adds syntax highlighting support for:
+- Base MLIR
+- Affine Dialect
+- LLVM IR Dialect
 
 ## Credits
 * Base MLIR Grammar Rules - [Jacques Pienaar](https://github.com/jpienaar/mlir-grammar)
