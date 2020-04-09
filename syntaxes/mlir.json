@@ -1,363 +1,863 @@
 {
-  "fileTypes":[
+  "fileTypes": [
     "mlir"
   ],
-  "repository":{
-    "attribute":{
-      "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
-      "name":"meta.attribute.mlir"
+  "repository": {
+    "attribute": {
+      "match": "\\W[\\w_][\\w\\d_.$]*\\s*=",
+      "name": "meta.attribute.mlir"
     },
-    "branch_target":{
-      "match":"\\^bb[\\w\\d_$\\.-]+",
-      "name":"entity.name.label.mlir"
+    "branch_target": {
+      "match": "\\^bb[\\w\\d_$\\.-]+",
+      "name": "entity.name.label.mlir"
     },
-    "comment":{
-      "match":"\/\/.*$",
-      "name":"comment.line.double-slash.mlir"
+    "comment": {
+      "match": "\/\/.*$",
+      "name": "comment.line.double-slash.mlir"
     },
-    "identifier":{
-      "match":"[\\%#@][\\w_][\\w\\d_.$]*",
-      "captures":{
-        "0":{
-          "name":"variable.mlir"
+    "identifier": {
+      "match": "[\\%#@][\\w_][\\w\\d_.$]*",
+      "captures": {
+        "0": {
+          "name": "variable.mlir"
         }
       },
-      "name":"meta.identifier.mlir"
+      "name": "meta.identifier.mlir"
     },
-    "integer":{
-      "match":"[\\W]([0-9]+)(?!x|[0-9])",
-      "captures":{
-        "1":{
-          "name":"constant.numeric.mlir"
+    "integer": {
+      "match": "[\\W]([0-9]+)(?!x|[0-9])",
+      "captures": {
+        "1": {
+          "name": "constant.numeric.mlir"
         }
       },
-      "name":"meta.identifier.mlir"
+      "name": "meta.identifier.mlir"
     },
-    "string":{
-      "end":"\"",
-      "begin":"\"",
-      "beginCaptures":{
-        "0":{
-          "name":"punctuation.definition.string.begin.mlir"
+    "string": {
+      "end": "\"",
+      "begin": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.mlir"
         }
       },
-      "patterns":[
+      "patterns": [
         {
-          "match":"\\\\[nt\"]",
-          "name":"constant.character.escape.mlir"
+          "match": "\\\\[nt\"]",
+          "name": "constant.character.escape.mlir"
         },
         {
-          "match":"\\\\.",
-          "name":"invalid.illegal.mlir"
+          "match": "\\\\.",
+          "name": "invalid.illegal.mlir"
         }
       ],
-      "endCaptures":{
-        "0":{
-          "name":"punctuation.definition.string.end.mlir"
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.mlir"
         }
       },
-      "name":"string.quoted.double.mlir"
+      "name": "string.quoted.double.mlir"
     },
-    "types":{
-      "match":"\\b(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector)\\b",
-      "captures":{
-        "1":{
-          "name":"storage.type.mlir"
+    "types": {
+      "match": "\\b(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector)\\b",
+      "captures": {
+        "1": {
+          "name": "storage.type.mlir"
         }
       },
-      "name":"meta.types.simple.mlir"
+      "name": "meta.types.simple.mlir"
     },
-    "memref-size":{
-      "match":"(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8)\\b",
-      "name":"storage.type.mlir.size"
+    "memref-size": {
+      "match": "(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8)\\b",
+      "name": "storage.type.mlir.size"
     },
     "affine-for": {
       "match": "\\baffine\\.for\\b",
-      "name":"entity.name.function.mlir.affine-for"
+      "name": "entity.name.function.mlir.affine-for"
     },
-    "affine-apply":{
+    "affine-apply": {
       "match": "\\baffine\\.apply\\b",
-      "name":"entity.name.function.mlir.affine-apply"
+      "name": "entity.name.function.mlir.affine-apply"
     },
-    "affine-if":{
+    "affine-if": {
       "match": "\\baffine\\.if\\b",
       "name": "entity.name.function.mlir.affine-if"
     },
-    "affine-else":{
+    "affine-else": {
       "match": "\\belse\\b",
       "name": "entity.name.function.mlir.affine-else"
     },
-    "affine-load":{
-      "match":"\\baffine\\.load\\b",
-      "name":"entity.name.function.mlir.affine-load"
+    "affine-load": {
+      "match": "\\baffine\\.load\\b",
+      "name": "entity.name.function.mlir.affine-load"
     },
-    "affine-store":{
+    "affine-store": {
       "match": "\\baffine\\.store\\b",
       "name": "entity.name.function.mlir.affine-store"
     },
-    "affine-dma_start":{
+    "affine-dma_start": {
       "match": "\\baffine\\.dma_start\\b",
       "name": "entity.name.function.mlir.affine-dma_start"
     },
-    "affine-dma_wait":{
+    "affine-dma_wait": {
       "match": "\\baffine\\.dma_wait\\b",
-      "name":"entity.name.function.mlir.affine-dma_wait"
+      "name": "entity.name.function.mlir.affine-dma_wait"
     },
-    "affine-min":{
+    "affine-min": {
       "match": "\\baffine\\.min\\b",
-      "name":"entity.name.function.mlir.affine-min"
+      "name": "entity.name.function.mlir.affine-min"
     },
-    "affine-max":{
+    "affine-max": {
       "match": "\\baffine\\.max\\b",
       "name": "entity.name.function.mlir.affine-max"
     },
-    "affine-parallel":{
+    "affine-parallel": {
       "match": "\\baffine\\.parallel\\b",
       "name": "entity.name.function.mlir.affine-parallel"
     },
-    "affine-prefetch":{
+    "affine-prefetch": {
       "match": "\\baffine\\.prefetch\\b",
       "name": "entity.name.function.mlir.affine-prefetch"
     },
-    "affine_map":{
+    "affine_map": {
       "match": "\\baffine_map\\b",
       "name": "entity.name.function.mlir.affine_map"
     },
-    "affine_set":{
+    "affine_set": {
       "match": "\\baffine_set\\b",
       "name": "entity.name.function.mlir.affine_set"
     },
-    "CHECK":{
-      "match":"(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
-      "captures":{
-        "1":{
+    "CHECK": {
+      "match": "(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
+      "captures": {
+        "1": {
           "name": "comment.line.double-slash.mlir"
         },
-        "2":{
+        "2": {
           "name": "comment.other.CHECK.mlir"
         },
-        "3":{
-          "patterns":[{
-            "include": "#CHECK-CODE"
-          }]
+        "3": {
+          "patterns": [
+            {
+              "include": "#CHECK-CODE"
+            }
+          ]
         },
         "name": "comment.other.CHECK.mlir"
       }
     },
-    "CHECK-CODE":{
-      "match":"([^0-9a-zA-Z%\"]*)?([0-9a-zA-Z\"\\.%_\\-]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
-      "captures":{
-        "1":{
+    "CHECK-CODE": {
+      "match": "([^0-9a-zA-Z%\"]*)?([0-9a-zA-Z\"\\.%_\\-]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
+      "captures": {
+        "1": {
           "name": "comment.line.double-slash.mlir"
         },
-        "2":{
-          "patterns":[{
-            "include": "$self"
-          },
-          {
-            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector|func)\\b",
-            "captures":{
-              "1":{
-                "name": "comment.line.double-slash.mlir"
-              },
-              "2":{
-                "name":"storage.type.mlir"
+        "2": {
+          "patterns": [
+            {
+              "include": "$self"
+            },
+            {
+              "match": "(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector|func)\\b",
+              "captures": {
+                "1": {
+                  "name": "comment.line.double-slash.mlir"
+                },
+                "2": {
+                  "name": "storage.type.mlir"
+                }
               }
-            }
-          },
-          {
-            "match":"\\b([0-9]+)(x.*)?",
-            "captures":{
-              "1":{
-                "name":"constant.numeric.mlir"
-              },
-              "2":{
-                "patterns":[{
-                  "include": "$self"
-                }]
+            },
+            {
+              "match": "\\b([0-9]+)(x.*)?",
+              "captures": {
+                "1": {
+                  "name": "constant.numeric.mlir"
+                },
+                "2": {
+                  "patterns": [
+                    {
+                      "include": "$self"
+                    }
+                  ]
+                }
               }
+            },
+            {
+              "match": "(.*)",
+              "name": "comment.line.double-slash.mlir"
             }
-          },
-          {
-            "match":"(.*)",
-            "name": "comment.line.double-slash.mlir"
-          }]
+          ]
         },
-        "3":{
-          "patterns":[{
-            "include": "#CHECK-CODE"
-          }]
+        "3": {
+          "patterns": [
+            {
+              "include": "#CHECK-CODE"
+            }
+          ]
         }
       }
     },
-    "llvmType":{
-      "match":"(^!llvm|\\s!llvm)[\\.<]",
-      "captures":{
-        "1":{
+    "llvmType": {
+      "match": "(^!llvm|\\s!llvm)[\\.<]",
+      "captures": {
+        "1": {
           "name": "variable.mlir"
         }
       },
       "name": "meta.types.llvm.mlir"
     },
-    "llvmFunc":{
-      "match":"\\bllvm\\.func\\b",
+    "llvmFunc": {
+      "match": "\\bllvm\\.func\\b",
       "name": "keyword.function.llvm"
     },
-    "llvmReturn":{
+    "llvmReturn": {
       "match": "\\bllvm\\.return\\b",
       "name": "keyword.return.llvm"
     },
-    "llvmIntArith":{
+    "llvmIntArith": {
       "match": "\\bllvm\\.(add|sub|mul|udiv|sdiv|urem|srem)\\b",
-      "name":"entity.name.function.mlir.llvmIntArithm"
+      "name": "entity.name.function.mlir.llvmIntArithm"
     },
-    "llvmFloatArith":{
+    "llvmFloatArith": {
       "match": "\\bllvm\\.(fadd|fsub|fmul|fdiv|frem)\\b",
       "name": "entity.name.function.mlir.llvmFloatArith"
     },
-    "llvmMemOp":{
+    "llvmMemOp": {
       "match": "\\bllvm\\.(alloca|getelementptr|load|store)\\b",
       "name": "entity.name.function.mlir.llvmMemOp"
     },
-    "llvmAggregateOp":{
+    "llvmAggregateOp": {
       "match": "\\bllvm\\.(extractvalue|insertvalue)\\b",
-      "name":"entity.name.function.mlir.llvmAggregateOp"
+      "name": "entity.name.function.mlir.llvmAggregateOp"
     },
-    "llvmTerminatorOp":{
+    "llvmTerminatorOp": {
       "match": "\\bllvm\\.(br|cond_br|call)\\b",
-      "name":"entity.name.function.mlir.llvmTerminatorOp"
+      "name": "entity.name.function.mlir.llvmTerminatorOp"
     },
-    "llvmComparison":{
-      "match":"\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select)\\b",
-      "name":"entity.name.function.mlir.llvmComparison"
+    "llvmComparison": {
+      "match": "\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select)\\b",
+      "name": "entity.name.function.mlir.llvmComparison"
     },
-    "llvmMLIR":{
-      "match":"\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
-      "captures":{
-        "1":{
-          "name":"keyword.other.llvm"
+    "llvmMLIR": {
+      "match": "\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
+      "captures": {
+        "1": {
+          "name": "keyword.other.llvm"
         },
-        "2":{
-          "name":"entity.name.function.mlir.auxilary"
+        "2": {
+          "name": "entity.name.function.mlir.auxilary"
         }
       },
-      "name":"meta.llvm.mlirAuxilary"
+      "name": "meta.llvm.mlirAuxilary"
     },
-    "gpuFunc":{
-      "match":"\\bgpu\\.func\\b",
+    "gpuFunc": {
+      "match": "\\bgpu\\.func\\b",
       "name": "keyword.function.mlir.gpu"
     },
-    "gpuReturn":{
+    "gpuReturn": {
       "match": "\\bgpu\\.return\\b",
       "name": "keyword.return.mlir.gpu"
     },
-    "gpuModules":{
+    "gpuModules": {
       "match": "\\bgpu\\.(module|container_module|kernel_module)\\b",
       "name": "keyword.other.mlir.gpu-modules"
     },
-    "gpuKernel":{
+    "gpuKernel": {
       "match": "\\bgpu\\.kernel\\b",
       "name": "keyword.other.mlir.gpu-kernel"
     },
-    "gpuOps":{
+    "gpuOps": {
       "match": "\"?gpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\"?",
       "name": "entity.name.function.mlir.gpuOps"
     },
-    "gpuLaunchAndTerminator":{
+    "gpuLaunchAndTerminator": {
       "match": "\\bgpu\\.(launch|terminator)\\b",
       "name": "keyword.other.mlir.gpu-launchAndTerminator"
     },
-    "gpuTestPromoteWorkgroup":{
+    "gpuTestPromoteWorkgroup": {
       "match": "\\bgpu\\.test_promote_workgroup\\b",
       "name": "keyword.other.mlir.gpu-testPromoteWorkgroup"
     },
-    "nvvmBlockDim":{
+    "nvvmBlockDim": {
       "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.ntid\\.(x|y|z)\\b",
       "name": "entity.name.function.mlir.nvvm-blockdim"
     },
-    "nvvmBlockId":{
+    "nvvmBlockId": {
       "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.ctaid\\.(x|y|z)\\b",
       "name": "entity.name.function.mlir.nvvm-blockdid"
     },
-    "nvvmGridDim":{
+    "nvvmGridDim": {
       "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.nctaid\\.(x|y|z)\\b",
       "name": "entity.name.function.mlir.nvvm-griddim"
     },
-    "nvvmLaneId":{
+    "nvvmLaneId": {
       "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.laneid\\b",
       "name": "entity.name.function.mlir.nvvm-laneid"
     },
-    "nvvmBarrier0":{
+    "nvvmBarrier0": {
       "match": "\\bnvvm\\.barrier0\\b",
       "name": "entity.name.function.mlir.nvvm-barrier0"
     },
-    "nvvmMma":{
+    "nvvmMma": {
       "match": "\\bnvvm\\.mma\\.sync\\b",
       "name": "entity.name.function.mlir.nvvm-mma"
     },
-    "nvvmShflBfly":{
+    "nvvmShflBfly": {
       "match": "\\bnvvm\\.shfl\\.sync\\.bfly\\b",
       "name": "entity.name.function.mlir.nvvm-shflbfly"
     },
-    "nvvmThreadId":{
+    "nvvmThreadId": {
       "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.tid\\.(x|y|z)\\b",
       "name": "entity.name.function.mlir.nvvm-threadid"
     },
-    "nvvmVoteBallot":{
+    "nvvmVoteBallot": {
       "match": "\\bnvvm\\.vote\\.ballot\\.sync\\b",
       "name": "entity.name.function.mlir.nvvm-voteballot"
     },
-    "nvvmWarpSize":{
+    "nvvmWarpSize": {
       "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.warpsize\\b",
       "name": "entity.name.function.mlir.warpsize"
+    },
+    "tfl_abs": {
+      "match": "\\s\"tfl\\.abs\"",
+      "name": "entity.name.function.mlir.tfl_abs"
+    },
+    "tfl_add_n": {
+      "match": "\\s\"tfl\\.add_n\"",
+      "name": "entity.name.function.mlir.tfl_add_n"
+    },
+    "tfl_add": {
+      "match": "\\s\"tfl\\.add\"",
+      "name": "entity.name.function.mlir.tfl_add"
+    },
+    "tfl_arg_max": {
+      "match": "\\s\"tfl\\.arg_max\"",
+      "name": "entity.name.function.mlir.tfl_arg_max"
+    },
+    "tfl_arg_min": {
+      "match": "\\s\"tfl\\.arg_min\"",
+      "name": "entity.name.function.mlir.tfl_arg_min"
+    },
+    "tfl_average_pool_2d": {
+      "match": "\\s\"tfl\\.average_pool_2d\"",
+      "name": "entity.name.function.mlir.tfl_average_pool_2d"
+    },
+    "tfl_basic_lstm": {
+      "match": "\\s\"tfl\\.basic_lstm\"",
+      "name": "entity.name.function.mlir.tfl_basic_lstm"
+    },
+    "tfl_batch_to_space_nd": {
+      "match": "\\s\"tfl\\.batch_to_space_nd\"",
+      "name": "entity.name.function.mlir.tfl_batch_to_space_nd"
+    },
+    "tfl_cast": {
+      "match": "\\s\"tfl\\.cast\"",
+      "name": "entity.name.function.mlir.tfl_cast"
+    },
+    "tfl_ceil": {
+      "match": "\\s\"tfl\\.ceil\"",
+      "name": "entity.name.function.mlir.tfl_ceil"
+    },
+    "tfl_concatenation": {
+      "match": "\\s\"tfl\\.concatenation\"",
+      "name": "entity.name.function.mlir.tfl_concatenation"
+    },
+    "tfl_pseudo_const": {
+      "match": "\\s\"tfl\\.pseudo_const\"",
+      "name": "entity.name.function.mlir.tfl_pseudo_const"
+    },
+    "tfl_conv_2d": {
+      "match": "\\s\"tfl\\.conv_2d\"",
+      "name": "entity.name.function.mlir.tfl_conv_2d"
+    },
+    "tfl_convolution_2d_transpose_bias": {
+      "match": "\\s\"tfl\\.convolution_2d_transpose_bias\"",
+      "name": "entity.name.function.mlir.tfl_convolution_2d_transpose_bias"
+    },
+    "tfl_cos": {
+      "match": "\\s\"tfl\\.cos\"",
+      "name": "entity.name.function.mlir.tfl_cos"
+    },
+    "tfl_densify": {
+      "match": "\\s\"tfl\\.densify\"",
+      "name": "entity.name.function.mlir.tfl_densify"
+    },
+    "tfl_depth_to_space": {
+      "match": "\\s\"tfl\\.depth_to_space\"",
+      "name": "entity.name.function.mlir.tfl_depth_to_space"
+    },
+    "tfl_depthwise_conv_2d": {
+      "match": "\\s\"tfl\\.depthwise_conv_2d\"",
+      "name": "entity.name.function.mlir.tfl_depthwise_conv_2d"
+    },
+    "tfl_dequantize": {
+      "match": "\\s\"tfl\\.dequantize\"",
+      "name": "entity.name.function.mlir.tfl_dequantize"
+    },
+    "tfl_div": {
+      "match": "\\s\"tfl\\.div\"",
+      "name": "entity.name.function.mlir.tfl_div"
+    },
+    "tfl_elu": {
+      "match": "\\s\"tfl\\.elu\"",
+      "name": "entity.name.function.mlir.tfl_elu"
+    },
+    "tfl_embedding_lookup": {
+      "match": "\\s\"tfl\\.embedding_lookup\"",
+      "name": "entity.name.function.mlir.tfl_embedding_lookup"
+    },
+    "tfl_equal": {
+      "match": "\\s\"tfl\\.equal\"",
+      "name": "entity.name.function.mlir.tfl_equal"
+    },
+    "tfl_exp": {
+      "match": "\\s\"tfl\\.exp\"",
+      "name": "entity.name.function.mlir.tfl_exp"
+    },
+    "tfl_expand_dims": {
+      "match": "\\s\"tfl\\.expand_dims\"",
+      "name": "entity.name.function.mlir.tfl_expand_dims"
+    },
+    "tfl_external_const": {
+      "match": "\\s\"tfl\\.external_const\"",
+      "name": "entity.name.function.mlir.tfl_external_const"
+    },
+    "tfl_fake_quant": {
+      "match": "\\s\"tfl\\.fake_quant\"",
+      "name": "entity.name.function.mlir.tfl_fake_quant"
+    },
+    "tfl_fill": {
+      "match": "\\s\"tfl\\.fill\"",
+      "name": "entity.name.function.mlir.tfl_fill"
+    },
+    "tfl_floor_div": {
+      "match": "\\s\"tfl\\.floor_div\"",
+      "name": "entity.name.function.mlir.tfl_floor_div"
+    },
+    "tfl_floor_mod": {
+      "match": "\\s\"tfl\\.floor_mod\"",
+      "name": "entity.name.function.mlir.tfl_floor_mod"
+    },
+    "tfl_floor": {
+      "match": "\\s\"tfl\\.floor_mod\"",
+      "name": "entity.name.function.mlir.tfl_floor"
+    },
+    "tfl_fully_connected": {
+      "match": "\\s\"tfl\\.fully_connected\"",
+      "name": "entity.name.function.mlir.tfl_fully_connected"
+    },
+    "tfl_gather_nd": {
+      "match": "\\s\"tfl\\.gather_nd\"",
+      "name": "entity.name.function.mlir.tfl_gather_nd"
+    },
+    "tfl_gather": {
+      "match": "\\s\"tfl\\.gather\"",
+      "name": "entity.name.function.mlir.tfl_gather"
+    },
+    "tfl_greater_equal": {
+      "match": "\\s\"tfl\\.greater_equal\"",
+      "name": "entity.name.function.mlir.tfl_greater_equal"
+    },
+    "tfl_greater": {
+      "match": "\\s\"tfl\\.greater\"",
+      "name": "entity.name.function.mlir.tfl_greater"
+    },
+    "tfl_hard_swish": {
+      "match": "\\s\"tfl\\.hard_swish\"",
+      "name": "entity.name.function.mlir.tfl_hard_swish"
+    },
+    "tfl_l2_normalization": {
+      "match": "\\s\"tfl\\.hard_swish\"",
+      "name": "entity.name.function.mlir.tfl_l2_normalization"
+    },
+    "tfl_lstm": {
+      "match": "\\s\"tfl\\.lstm\"",
+      "name": "entity.name.function.mlir.tfl_lstm"
+    },
+    "tfl_leaky_relu": {
+      "match": "\\s\"tfl\\.lstm\"",
+      "name": "entity.name.function.mlir.tfl_leaky_relu"
+    },
+    "tfl_less_equal": {
+      "match": "\\s\"tfl\\.less_equal\"",
+      "name": "entity.name.function.mlir.tfl_less_equal"
+    },
+    "tfl_less": {
+      "match": "\\s\"tfl\\.less\"",
+      "name": "entity.name.function.mlir.tfl_less"
+    },
+    "tfl_local_response_normalization": {
+      "match": "\\s\"tfl\\.local_response_normalization\"",
+      "name": "entity.name.function.mlir.tfl_local_response_normalization"
+    },
+    "tfl_log": {
+      "match": "\\s\"tfl\\.log\"",
+      "name": "entity.name.function.mlir.tfl_log"
+    },
+    "tfl_log_softmax": {
+      "match": "\\s\"tfl\\.log_softmax\"",
+      "name": "entity.name.function.mlir.tfl_log_softmax"
+    },
+    "tfl_logical_and": {
+      "match": "\\s\"tfl\\.logical_and\"",
+      "name": "entity.name.function.mlir.tfl_logical_and"
+    },
+    "tfl_logical_not": {
+      "match": "\\s\"tfl\\.logical_not\"",
+      "name": "entity.name.function.mlir.tfl_logical_not"
+    },
+    "tfl_logical_or": {
+      "match": "\\s\"tfl\\.logical_or\"",
+      "name": "entity.name.function.mlir.tfl_logical_or"
+    },
+    "tfl_logistic": {
+      "match": "\\s\"tfl\\.logistic\"",
+      "name": "entity.name.function.mlir.tfl_logistic"
+    },
+    "tfl_matrix_diag": {
+      "match": "\\s\"tfl\\.matrix_diag\"",
+      "name": "entity.name.function.mlir.tfl_matrix_diag"
+    },
+    "tfl_matrix_set_diag": {
+      "match": "\\s\"tfl\\.matrix_set_diag\"",
+      "name": "entity.name.function.mlir.tfl_matrix_set_diag"
+    },
+    "tfl_max_pool_2d": {
+      "match": "\\s\"tfl\\.max_pool_2d\"",
+      "name": "entity.name.function.mlir.tfl_max_pool_2d"
+    },
+    "tfl_max_pooling_with_argmax_2d": {
+      "match": "\\s\"tfl\\.max_pooling_with_argmax_2d\"",
+      "name": "entity.name.function.mlir.tfl_max_pooling_with_argmax_2d"
+    },
+    "tfl_max_unpooling_2d": {
+      "match": "\\s\"tfl\\.max_unpooling_2d\"",
+      "name": "entity.name.function.mlir.tfl_max_unpooling_2d"
+    },
+    "tfl_maximum": {
+      "match": "\\s\"tfl\\.maximum\"",
+      "name": "entity.name.function.mlir.tfl_maximum"
+    },
+    "tfl_mean": {
+      "match": "\\s\"tfl\\.mean\"",
+      "name": "entity.name.function.mlir.tfl_mean"
+    },
+    "tfl_minimum": {
+      "match": "\\s\"tfl\\.minimum\"",
+      "name": "entity.name.function.mlir.tfl_minimum"
+    },
+    "tfl_mirror_pad": {
+      "match": "\\s\"tfl\\.mirror_pad\"",
+      "name": "entity.name.function.mlir.tfl_mirror_pad"
+    },
+    "tfl_mul": {
+      "match": "\\s\"tfl\\.mul\"",
+      "name": "entity.name.function.mlir.tfl_mul"
+    },
+    "tfl_neg": {
+      "match": "\\s\"tfl\\.neg\"",
+      "name": "entity.name.function.mlir.tfl_neg"
+    },
+    "tfl_non_max_suppression_v4": {
+      "match": "\\s\"tfl\\.non_max_suppression_v4\"",
+      "name": "entity.name.function.mlir.tfl_non_max_suppression_v4"
+    },
+    "tfl_non_max_suppression_v5": {
+      "match": "\\s\"tfl\\.non_max_suppression_v5\"",
+      "name": "entity.name.function.mlir.tfl_non_max_suppression_v5"
+    },
+    "tfl_not_equal": {
+      "match": "\\s\"tfl\\.not_equal\"",
+      "name": "entity.name.function.mlir.tfl_not_equal"
+    },
+    "tfl_NumericVerify": {
+      "match": "\\s\"tfl\\.NumericVerify\"",
+      "name": "entity.name.function.mlir.tfl_NumericVerify"
+    },
+    "tfl_one_hot": {
+      "match": "\\s\"tfl\\.one_hot\"",
+      "name": "entity.name.function.mlir.tfl_one_hot"
+    },
+    "tfl_prelu": {
+      "match": "\\s\"tfl\\.prelu\"",
+      "name": "entity.name.function.mlir.tfl_prelu"
+    },
+    "tfl_pack": {
+      "match": "\\s\"tfl\\.pack\"",
+      "name": "entity.name.function.mlir.tfl_pack"
+    },
+    "tfl_pad": {
+      "match": "\\s\"tfl\\.pad\"",
+      "name": "entity.name.function.mlir.tfl_pad"
+    },
+    "tfl_padv2": {
+      "match": "\\s\"tfl\\.pad\"",
+      "name": "entity.name.function.mlir.tfl_padv2"
+    },
+    "tfl_pow": {
+      "match": "\\s\"tfl\\.pow\"",
+      "name": "entity.name.function.mlir.tfl_pow"
+    },
+    "tfl_pseudo_qconst": {
+      "match": "\\s\"tfl\\.pseudo_qconst\"",
+      "name": "entity.name.function.mlir.tfl_pseudo_qconst"
+    },
+    "tfl_quantize": {
+      "match": "\\s\"tfl\\.quantize\"",
+      "name": "entity.name.function.mlir.tfl_quantize"
+    },
+    "tfl_range": {
+      "match": "\\s\"tfl\\.range\"",
+      "name": "entity.name.function.mlir.tfl_range"
+    },
+    "tfl_rank": {
+      "match": "\\s\"tfl\\.rank\"",
+      "name": "entity.name.function.mlir.tfl_rank"
+    },
+    "tfl_reduce_any": {
+      "match": "\\s\"tfl\\.reduce_any\"",
+      "name": "entity.name.function.mlir.tfl_reduce_any"
+    },
+    "tfl_reduce_max": {
+      "match": "\\s\"tfl\\.reduce_any\"",
+      "name": "entity.name.function.mlir.tfl_reduce_max"
+    },
+    "tfl_reduce_min": {
+      "match": "\\s\"tfl\\.reduce_min\"",
+      "name": "entity.name.function.mlir.tfl_reduce_min"
+    },
+    "tfl_reduce_prod": {
+      "match": "\\s\"tfl\\.reduce_prod\"",
+      "name": "entity.name.function.mlir.tfl_reduce_prod"
+    },
+    "tfl_relu_n1_to_1": {
+      "match": "\\s\"tfl\\.relu_n1_to_1\"",
+      "name": "entity.name.function.mlir.tfl_relu_n1_to_1"
+    },
+    "tfl_relu6": {
+      "match": "\\s\"tfl\\.relu6\"",
+      "name": "entity.name.function.mlir.tfl_relu6"
+    },
+    "tfl_relu": {
+      "match": "\\s\"tfl\\.relu\"",
+      "name": "entity.name.function.mlir.tfl_relu"
+    },
+    "tfl_reshape": {
+      "match": "\\s\"tfl\\.reshape\"",
+      "name": "entity.name.function.mlir.tfl_reshape"
+    },
+    "tfl_resize_bilinear": {
+      "match": "\\s\"tfl\\.resize_bilinear\"",
+      "name": "entity.name.function.mlir.tfl_resize_bilinear"
+    },
+    "tfl_resize_nearest_neighbor": {
+      "match": "\\s\"tfl\\.resize_nearest_neighbor\"",
+      "name": "entity.name.function.mlir.tfl_resize_nearest_neighbor"
+    },
+    "tfl_reverse_sequence": {
+      "match": "\\s\"tfl\\.resize_nearest_neighbor\"",
+      "name": "entity.name.function.mlir.tfl_reverse_sequence"
+    },
+    "tfl_reverse_v2": {
+      "match": "\\s\"tfl\\.reverse_v2\"",
+      "name": "entity.name.function.mlir.tfl_reverse_v2"
+    },
+    "tfl_round": {
+      "match": "\\s\"tfl\\.round\"",
+      "name": "entity.name.function.mlir.tfl_round"
+    },
+    "tfl_rsqrt": {
+      "match": "\\s\"tfl\\.round\"",
+      "name": "entity.name.function.mlir.tfl_rsqrt"
+    },
+    "tfl_svdf": {
+      "match": "\\s\"tfl\\.svdf\"",
+      "name": "entity.name.function.mlir.tfl_svdf"
+    },
+    "tfl_segment_sum": {
+      "match": "\\s\"tfl\\.svdf\"",
+      "name": "entity.name.function.mlir.tfl_segment_sum"
+    },
+    "tfl_select": {
+      "match": "\\s\"tfl\\.select\"",
+      "name": "entity.name.function.mlir.tfl_select"
+    },
+    "tfl_select_v2": {
+      "match": "\\s\"tfl\\.select_v2\"",
+      "name": "entity.name.function.mlir.tfl_select_v2"
+    },
+    "tfl_shape": {
+      "match": "\\s\"tfl\\.shape\"",
+      "name": "entity.name.function.mlir.tfl_shape"
+    },
+    "tfl_sin": {
+      "match": "\\s\"tfl\\.sin\"",
+      "name": "entity.name.function.mlir.tfl_sin"
+    },
+    "tfl_slice": {
+      "match": "\\s\"tfl\\.slice\"",
+      "name": "entity.name.function.mlir.tfl_slice"
+    },
+    "tfl_softmax": {
+      "match": "\\s\"tfl\\.slice\"",
+      "name": "entity.name.function.mlir.tfl_softmax"
+    },
+    "tfl_space_to_batch_nd": {
+      "match": "\\s\"tfl\\.space_to_batch_nd\"",
+      "name": "entity.name.function.mlir.tfl_space_to_batch_nd"
+    },
+    "tfl_space_to_depth": {
+      "match": "\\s\"tfl\\.space_to_depth\"",
+      "name": "entity.name.function.mlir.tfl_space_to_depth"
+    },
+    "tfl_pseudo_sparse_const": {
+      "match": "\\s\"tfl\\.pseudo_sparse_const\"",
+      "name": "entity.name.function.mlir.tfl_pseudo_sparse_const"
+    },
+    "tfl_pseudo_sparse_qconst": {
+      "match": "\\s\"tfl\\.pseudo_sparse_qconst\"",
+      "name": "entity.name.function.mlir.tfl_pseudo_sparse_qconst"
+    },
+    "tfl_sparse_to_dense": {
+      "match": "\\s\"tfl\\.sparse_to_dense\"",
+      "name": "entity.name.function.mlir.tfl_sparse_to_dense"
+    },
+    "tfl_split": {
+      "match": "\\s\"tfl\\.sparse_to_dense\"",
+      "name": "entity.name.function.mlir.tfl_split"
+    },
+    "tfl_split_v": {
+      "match": "\\s\"tfl\\.split_v\"",
+      "name": "entity.name.function.mlir.tfl_split_v"
+    },
+    "tfl_sqrt": {
+      "match": "\\s\"tfl\\.sqrt\"",
+      "name": "entity.name.function.mlir.tfl_sqrt"
+    },
+    "tfl_square": {
+      "match": "\\s\"tfl\\.square\"",
+      "name": "entity.name.function.mlir.tfl_square"
+    },
+    "tfl_squared_difference": {
+      "match": "\\s\"tfl\\.squared_difference\"",
+      "name": "entity.name.function.mlir.tfl_squared_difference"
+    },
+    "tfl_squeeze": {
+      "match": "\\s\"tfl\\.squeeze\"",
+      "name": "entity.name.function.mlir.tfl_squeeze"
+    },
+    "tfl_strided_slice": {
+      "match": "\\s\"tfl\\.strided_slice\"",
+      "name": "entity.name.function.mlir.tfl_strided_slice"
+    },
+    "tfl_sub": {
+      "match": "\\s\"tfl\\.sub\"",
+      "name": "entity.name.function.mlir.tfl_sub"
+    },
+    "tfl_sum": {
+      "match": "\\s\"tfl\\.sum\"",
+      "name": "entity.name.function.mlir.tfl_sum"
+    },
+    "tfl_tanh": {
+      "match": "\\s\"tfl\\.tanh\"",
+      "name": "entity.name.function.mlir.tfl_tanh"
+    },
+    "tfl_tile": {
+      "match": "\\s\"tfl\\.tile\"",
+      "name": "entity.name.function.mlir.tfl_tile"
+    },
+    "tfl_topk_v2": {
+      "match": "\\s\"tfl\\.topk_v2\"",
+      "name": "entity.name.function.mlir.tfl_topk_v2"
+    },
+    "tfl_transpose_conv": {
+      "match": "\\s\"tfl\\.transpose_conv\"",
+      "name": "entity.name.function.mlir.tfl_transpose_conv"
+    },
+    "tfl_transpose": {
+      "match": "\\s\"tfl\\.transpose\"",
+      "name": "entity.name.function.mlir.tfl_transpose"
+    },
+    "tfl_unidirectional_sequence_lstm": {
+      "match": "\\s\"tfl\\.unidirectional_sequence_lstm\"",
+      "name": "entity.name.function.mlir.tfl_unidirectional_sequence_lstm"
+    },
+    "tfl_unidirectional_sequence_rnn": {
+      "match": "\\s\"tfl\\.unidirectional_sequence_rnn\"",
+      "name": "entity.name.function.mlir.tfl_unidirectional_sequence_rnn"
+    },
+    "tfl_unique": {
+      "match": "\\s\"tfl\\.unique\"",
+      "name": "entity.name.function.mlir.tfl_unique"
+    },
+    "tfl_unpack": {
+      "match": "\\s\"tfl\\.unpack\"",
+      "name": "entity.name.function.mlir.tfl_unpack"
+    },
+    "tfl_where": {
+      "match": "\\s\"tfl\\.where\"",
+      "name": "entity.name.function.mlir.tfl_where"
+    },
+    "tfl_while": {
+      "match": "\\s\"tfl\\.while\"",
+      "name": "entity.name.function.mlir.tfl_while"
+    },
+    "tfl_yield": {
+      "match": "\\s\"tfl\\.yield\"",
+      "name": "entity.name.function.mlir.tfl_yield"
+    },
+    "tfl_zeros_like": {
+      "match": "\\s\"tfl\\.abs\"",
+      "name": "entity.name.function.mlir.tfl_zeros_like"
     }
   },
-  "patterns":[
+  "patterns": [
     {
-      "match":"\\b(func)\\b\\s*(@[\\w_][\\w\\d_.$]*)",
-      "captures":{
-        "1":{
-          "name":"keyword.function.mlir"
+      "match": "\\b(func)\\b\\s*(@[\\w_][\\w\\d_.$]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.function.mlir"
         },
-        "2":{
-          "name":"entity.name.function.mlir"
+        "2": {
+          "name": "entity.name.function.mlir"
         }
       },
-      "name":"support.function.mlir"
+      "name": "support.function.mlir"
     },
     {
-      "match":"\\b(attributes|br|call|constant|loc|return)\\b",
-      "name":"keyword.module.mlir"
+      "match": "\\b(attributes|br|call|constant|loc|return)\\b",
+      "name": "keyword.module.mlir"
     },
     {
-      "include":"#identifier"
+      "include": "#identifier"
     },
     {
-      "include":"#branch_target"
+      "include": "#branch_target"
     },
     {
-      "include":"#attribute"
+      "include": "#attribute"
     },
     {
-      "include":"#memref-size"
+      "include": "#memref-size"
     },
     {
-      "include":"#types"
+      "include": "#types"
     },
     {
-      "include":"#integer"
+      "include": "#integer"
     },
     {
-      "include":"#affine-for"
+      "include": "#affine-for"
     },
     {
-      "include":"#affine-apply"
+      "include": "#affine-apply"
     },
     {
-      "include":"#affine-if"
+      "include": "#affine-if"
     },
     {
-      "include":"#affine-else"
+      "include": "#affine-else"
     },
     {
       "include": "#affine-load"
@@ -378,22 +878,22 @@
       "include": "#affine-max"
     },
     {
-      "include":"#affine-parallel"
+      "include": "#affine-parallel"
     },
     {
-      "include":"#affine-prefetch"
+      "include": "#affine-prefetch"
     },
     {
-      "include":"#affine_map"
+      "include": "#affine_map"
     },
     {
-      "include":"#affine_set"
+      "include": "#affine_set"
     },
     {
-      "include":"#CHECK"
+      "include": "#CHECK"
     },
     {
-      "include":"#llvmType"
+      "include": "#llvmType"
     },
     {
       "include": "#llvmFunc"
@@ -474,13 +974,381 @@
       "include": "#nvvmWarpSize"
     },
     {
-      "include":"#comment"
+      "include": "#tfl_abs"
     },
     {
-      "include":"#string"
+      "include": "#tfl_add_n"
+    },
+    {
+      "include": "#tfl_add"
+    },
+    {
+      "include": "#tfl_arg_max"
+    },
+    {
+      "include": "#tfl_arg_min"
+    },
+    {
+      "include": "#tfl_average_pool_2d"
+    },
+    {
+      "include": "#tfl_basic_lstm"
+    },
+    {
+      "include": "#tfl_batch_to_space_nd"
+    },
+    {
+      "include": "#tfl_cast"
+    },
+    {
+      "include": "#tfl_ceil"
+    },
+    {
+      "include": "#tfl_concatenation"
+    },
+    {
+      "include": "#tfl_pseudo_const"
+    },
+    {
+      "include": "#tfl_conv_2d"
+    },
+    {
+      "include": "#tfl_convolution_2d_transpose_bias"
+    },
+    {
+      "include": "#tfl_cos"
+    },
+    {
+      "include": "#tfl_densify"
+    },
+    {
+      "include": "#tfl_depth_to_space"
+    },
+    {
+      "include": "#tfl_depthwise_conv_2d"
+    },
+    {
+      "include": "#tfl_dequantize"
+    },
+    {
+      "include": "#tfl_div"
+    },
+    {
+      "include": "#tfl_elu"
+    },
+    {
+      "include": "#tfl_embedding_lookup"
+    },
+    {
+      "include": "#tfl_equal"
+    },
+    {
+      "include": "#tfl_exp"
+    },
+    {
+      "include": "#tfl_expand_dims"
+    },
+    {
+      "include": "#tfl_external_const"
+    },
+    {
+      "include": "#tfl_fake_quant"
+    },
+    {
+      "include": "#tfl_fill"
+    },
+    {
+      "include": "#tfl_floor_div"
+    },
+    {
+      "include": "#tfl_floor_mod"
+    },
+    {
+      "include": "#tfl_floor"
+    },
+    {
+      "include": "#tfl_fully_connected"
+    },
+    {
+      "include": "#tfl_gather_nd"
+    },
+    {
+      "include": "#tfl_gather"
+    },
+    {
+      "include": "#tfl_greater_equal"
+    },
+    {
+      "include": "#tfl_greater"
+    },
+    {
+      "include": "#tfl_hard_swish"
+    },
+    {
+      "include": "#tfl_l2_normalization"
+    },
+    {
+      "include": "#tfl_lstm"
+    },
+    {
+      "include": "#tfl_leaky_relu"
+    },
+    {
+      "include": "#tfl_less_equal"
+    },
+    {
+      "include": "#tfl_less"
+    },
+    {
+      "include": "#tfl_local_response_normalization"
+    },
+    {
+      "include": "#tfl_log"
+    },
+    {
+      "include": "#tfl_log_softmax"
+    },
+    {
+      "include": "#tfl_logical_and"
+    },
+    {
+      "include": "#tfl_logical_not"
+    },
+    {
+      "include": "#tfl_logical_or"
+    },
+    {
+      "include": "#tfl_logistic"
+    },
+    {
+      "include": "#tfl_matrix_diag"
+    },
+    {
+      "include": "#tfl_matrix_set_diag"
+    },
+    {
+      "include": "#tfl_max_pool_2d"
+    },
+    {
+      "include": "#tfl_max_pooling_with_argmax_2d"
+    },
+    {
+      "include": "#tfl_max_unpooling_2d"
+    },
+    {
+      "include": "#tfl_maximum"
+    },
+    {
+      "include": "#tfl_mean"
+    },
+    {
+      "include": "#tfl_minimum"
+    },
+    {
+      "include": "#tfl_mirror_pad"
+    },
+    {
+      "include": "#tfl_mul"
+    },
+    {
+      "include": "#tfl_neg"
+    },
+    {
+      "include": "#tfl_non_max_suppression_v4"
+    },
+    {
+      "include": "#tfl_non_max_suppression_v5"
+    },
+    {
+      "include": "#tfl_not_equal"
+    },
+    {
+      "include": "#tfl_NumericVerify"
+    },
+    {
+      "include": "#tfl_one_hot"
+    },
+    {
+      "include": "#tfl_prelu"
+    },
+    {
+      "include": "#tfl_pack"
+    },
+    {
+      "include": "#tfl_pad"
+    },
+    {
+      "include": "#tfl_padv2"
+    },
+    {
+      "include": "#tfl_pow"
+    },
+    {
+      "include": "#tfl_pseudo_qconst"
+    },
+    {
+      "include": "#tfl_quantize"
+    },
+    {
+      "include": "#tfl_range"
+    },
+    {
+      "include": "#tfl_rank"
+    },
+    {
+      "include": "#tfl_reduce_any"
+    },
+    {
+      "include": "#tfl_reduce_max"
+    },
+    {
+      "include": "#tfl_reduce_min"
+    },
+    {
+      "include": "#tfl_reduce_prod"
+    },
+    {
+      "include": "#tfl_relu_n1_to_1"
+    },
+    {
+      "include": "#tfl_relu6"
+    },
+    {
+      "include": "#tfl_relu"
+    },
+    {
+      "include": "#tfl_reshape"
+    },
+    {
+      "include": "#tfl_resize_bilinear"
+    },
+    {
+      "include": "#tfl_resize_nearest_neighbor"
+    },
+    {
+      "include": "#tfl_reverse_sequence"
+    },
+    {
+      "include": "#tfl_reverse_v2"
+    },
+    {
+      "include": "#tfl_round"
+    },
+    {
+      "include": "#tfl_rsqrt"
+    },
+    {
+      "include": "#tfl_svdf"
+    },
+    {
+      "include": "#tfl_segment_sum"
+    },
+    {
+      "include": "#tfl_select"
+    },
+    {
+      "include": "#tfl_select_v2"
+    },
+    {
+      "include": "#tfl_shape"
+    },
+    {
+      "include": "#tfl_sin"
+    },
+    {
+      "include": "#tfl_slice"
+    },
+    {
+      "include": "#tfl_softmax"
+    },
+    {
+      "include": "#tfl_space_to_batch_nd"
+    },
+    {
+      "include": "#tfl_space_to_depth"
+    },
+    {
+      "include": "#tfl_pseudo_sparse_const"
+    },
+    {
+      "include": "#tfl_pseudo_sparse_qconst"
+    },
+    {
+      "include": "#tfl_sparse_to_dense"
+    },
+    {
+      "include": "#tfl_split"
+    },
+    {
+      "include": "#tfl_split_v"
+    },
+    {
+      "include": "#tfl_sqrt"
+    },
+    {
+      "include": "#tfl_square"
+    },
+    {
+      "include": "#tfl_squared_difference"
+    },
+    {
+      "include": "#tfl_squeeze"
+    },
+    {
+      "include": "#tfl_strided_slice"
+    },
+    {
+      "include": "#tfl_sub"
+    },
+    {
+      "include": "#tfl_sum"
+    },
+    {
+      "include": "#tfl_tanh"
+    },
+    {
+      "include": "#tfl_tile"
+    },
+    {
+      "include": "#tfl_topk_v2"
+    },
+    {
+      "include": "#tfl_transpose_conv"
+    },
+    {
+      "include": "#tfl_transpose"
+    },
+    {
+      "include": "#tfl_unidirectional_sequence_lstm"
+    },
+    {
+      "include": "#tfl_unidirectional_sequence_rnn"
+    },
+    {
+      "include": "#tfl_unique"
+    },
+    {
+      "include": "#tfl_unpack"
+    },
+    {
+      "include": "#tfl_where"
+    },
+    {
+      "include": "#tfl_while"
+    },
+    {
+      "include": "#tfl_yield"
+    },
+    {
+      "include": "#tfl_zeros_like"
+    },
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#string"
     }
   ],
-  "name":"MLIR",
-  "scopeName":"source.mlir"
+  "name": "MLIR",
+  "scopeName": "source.mlir"
 }
-
