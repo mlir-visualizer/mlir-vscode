@@ -810,6 +810,130 @@
     "tfl_zeros_like": {
       "match": "\\s\"tfl\\.abs\"",
       "name": "entity.name.function.mlir.tfl_zeros_like"
+    },
+    "vectorBroadcast":{
+      "match": "\\Wvector\\.broadcast\\b",
+      "name":"entity.name.function.mlir.vector_broadcast"
+    },
+    "vectorConstant_mask":{
+      "match" :"\\Wvector\\.constant_mask\\b",
+      "name": "entity.name.function.mlir.vector_constantmask"
+    },
+    "vectorContract":{
+      "match": "\\Wvector\\.contract\\b",
+      "name":"entity.name.function.mlir.vector_contract"
+    },
+    "vectorCreate_mask":{
+      "match" : "\\Wvector\\.create_mask\\b",
+      "name": "entity.name.function.mlir.vector_createmask"
+    },
+    "vectorExtractElement":{
+      "match" : "\\W(vector|llvm)\\.extractelement\\b",
+      "name": "entity.name.function.mlir.vector_extractelement"
+    },
+    "vectorExtract":{
+      "match" : "\\Wvector\\.extract\\b",
+      "name" : "entity.name.function.mlir.vector_extract"
+    },
+    "vectorExtract_slices":{
+      "match" : "\\Wvector\\.extract_slices\\b",
+      "name": "entity.name.function.mlir.vector_extractSlices"
+    },
+    "vectorFma":{
+      "match" : "\\Wvector\\.vectorfma\\b",
+      "name": "entity.name.function.mlir.vector_fma"
+    },
+    "vectorInsertElement":{
+      "match" : "\\W(vector|llvm)\\.insertelement\\b",
+      "name" : "entity.name.function.mlir.vector_insertElement"
+    },
+    "vectorInsert":{
+      "match" : "\\Wvector\\.insert\\b",
+      "name" :"entity.name.function.mlir.vector_insert"
+    },
+    "vectorInsert_slices":{
+      "match":"\\Wvector\\.insert_slices\\b",
+      "name" : "entity.name.function.mlir.vector_insertSlices"
+    },
+    "vectorInsert_strided_slice":{
+      "match" : "\\Wvector\\.insert_strided_slice\\b",
+      "name" : "entity.name.function.mlir.vector_insertStridedSlice"
+    },
+    "vectorMatrixMult":{
+      "match" : "\\Wvector\\.matrix_multiply\\b",
+      "name" : "entity.name.function.mlir.vector_matrixmult"
+    },
+    "vectorOuterproduct":{
+      "match": "\\Wvector\\.outerproduct\\b",
+      "name": "entity.name.function.mlir.vector_outerproduct"
+    },
+    "vectorPrint":{
+      "match" : "\\Wvector\\.print\\b",
+      "name" : "entity.name.function.mlir.vector_print" 
+    },
+    "vectorReduction":{
+      "match" : "\\Wvector\\.reduction\\b",
+      "name" : "entity.name.function.mlir.vector_reduction"
+    },
+    "vectorReshape":{
+      "match" : "\\Wvector\\.reshape\\b",
+      "name": "entity.name.function.mlir.vector_reshape"
+    },
+    "vectorReshape_cast":{
+      "match" : "\\Wvector\\.shape_cast\\b",
+      "name" : "entity.name.function.mlir.vector_reshapeCast"
+    },
+    "vectorShuffle":{
+      "match" : "\\Wvector\\.shuffle\\b",
+      "name" : "entity.name.function.mlir.vector_shuffle"
+    },
+    "vectorStrided_slice":{
+      "match" : "\\Wvector\\.strided_slice\\b",
+      "name" : "entity.name.function.mlir.vector_stridedSlice"
+    },
+    "vectorTransfer_read":{
+      "match" : "\\Wvector\\.transfer_read\\b",
+      "name" : "entity.name.function.mlir.vector_transferRead"
+    },
+    "vectorTransfer_write":{
+      "match" : "\\Wvector\\.transfer_write\\b",
+      "name" : "entity.name.function.mlir.vector_transferWrite"
+    },
+    "vectorTranspose":{
+      "match" : "\\Wvector\\.transpose\\b",
+      "name" : "entity.name.function.mlir.vector_transpose"
+    },
+    "vectorTuple_get":{
+      "match" : "\\Wvector\\.tuple_get\\b",
+      "name" : "entity.name.function.mlir.vector_tupleGet"
+    },
+    "vectorTuple":{
+      "match" : "\\Wvector\\.tuple\\b",
+      "name" : "entity.name.function.mlir.vector_tuple"
+    },
+    "vectorTypecast":{
+      "match" : "\\Wvector\\.type_cast\\b",
+      "name": "entity.name.function.mlir.vector_typeCast"
+    },
+    "loopFor":{
+      "match" : "\\bloop\\.for\\b",
+      "name": "entity.name.function.mlir.loop_for"
+    },
+    "loopIf":{
+      "match" : "\\bloop\\.if\\b",
+      "name" : "entity.name.function.mlir.loop_if"
+    },
+    "loopParallel":{
+      "match" : "\\bloop\\.parallel\\b",
+      "name": "entity.name.function.mlir.loop_parallel"
+    },
+    "loopReduce":{
+      "match" : "\\bloop\\.reduce\\b",
+      "name": "entity.name.function.mlir.loop_reduce"
+    },
+    "loopYield":{
+      "match" : "\\bloop\\.yield\\b",
+      "name" : "entity.name.function.mlir.loop_yield"
     }
   },
   "patterns": [
@@ -840,9 +964,6 @@
     },
     {
       "include": "#memref-size"
-    },
-    {
-      "include": "#types"
     },
     {
       "include": "#integer"
@@ -1343,7 +1464,103 @@
       "include": "#tfl_zeros_like"
     },
     {
+      "include": "#vectorBroadcast"
+    },
+    {
+      "include":"#vectorConstant_mask"
+    },
+    {
+      "include":"#vectorContract"
+    },
+    {
+      "include":"#vectorCreate_mask"
+    },
+    {
+      "include": "#vectorExtractElement"
+    },
+    {
+      "include": "#vectorExtract"
+    },
+    {
+      "include": "#vectorExtract_slices"
+    },
+    {
+      "include" :"#vectorFma"
+    },
+    {
+      "include": "#vectorInsertElement"
+    },
+    {
+      "include":"#vectorInsert"
+    },
+    {
+      "include":"#vectorInsert_slices"
+    },
+    {
+      "include": "#vectorInsert_strided_slice"
+    },
+    {
+      "include": "#vectorMatrixMult"
+    },
+    {
+      "include":"#vectorOuterproduct"
+    },
+    {
+      "include": "#vectorPrint"
+    },
+    {
+      "include": "#vectorReduction"
+    },
+    {
+      "include":"#vectorReshape"
+    },
+    {
+      "include": "#vectorReshape_cast"
+    },
+    {
+      "include": "#vectorShuffle"
+    },
+    {
+      "include":"#vectorStrided_slice"
+    },
+    {
+      "include":"#vectorTransfer_read"
+    },
+    {
+      "include": "#vectorTransfer_write"
+    },
+    {
+      "include":"#vectorTranspose"
+    },
+    {
+      "include":"#vectorTuple_get"
+    },
+    {
+      "include": "#vectorTuple"
+    },
+    {
+      "include":"#vectorTypecast"
+    },
+    {
+      "include": "#loopFor"
+    },
+    {
+      "include": "#loopIf"
+    },
+    {
+      "include": "#loopParallel"
+    },
+    {
+      "include": "#loopReduce"
+    },
+    {
+      "include": "#loopYield"
+    },
+    {
       "include": "#comment"
+    },
+    {
+      "include": "#types"
     },
     {
       "include": "#string"
