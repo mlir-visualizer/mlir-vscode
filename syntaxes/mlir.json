@@ -242,6 +242,34 @@
         }
       },
       "name":"meta.llvm.mlirAuxilary"
+    },
+    "gpuFunc":{
+      "match":"\\bgpu\\.func\\b",
+      "name": "keyword.function.mlir.gpu"
+    },
+    "gpuReturn":{
+      "match": "\\bgpu\\.return\\b",
+      "name": "keyword.return.mlir.gpu"
+    },
+    "gpuModules":{
+      "match": "\\bgpu\\.(module|container_module|kernel_module)\\b",
+      "name": "keyword.other.mlir.gpu-modules"
+    },
+    "gpuKernel":{
+      "match": "\\bgpu\\.kernel\\b",
+      "name": "keyword.other.mlir.gpu-kernel"
+    },
+    "gpuOps":{
+      "match": "\"?gpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\"?",
+      "name": "entity.name.function.mlir.gpuOps"
+    },
+    "gpuLaunchAndTerminator":{
+      "match": "\\bgpu\\.(launch|terminator)\\b",
+      "name": "keyword.other.mlir.gpu-launchAndTerminator"
+    },
+    "gpuTestPromoteWorkgroup":{
+      "match": "\\bgpu\\.test_promote_workgroup\\b",
+      "name": "keyword.other.mlir.gpu-testPromoteWorkgroup"
     }
   },
   "patterns":[
@@ -353,6 +381,27 @@
     },
     {
       "include": "#llvmMLIR"
+    },
+    {
+      "include": "#gpuFunc"
+    },
+    {
+      "include": "#gpuReturn"
+    },
+    {
+      "include": "#gpuModules"
+    },
+    {
+      "include": "#gpuKernel"
+    },
+    {
+      "include": "#gpuOps"
+    },
+    {
+      "include": "#gpuLaunchAndTerminator"
+    },
+    {
+      "include": "#gpuTestPromoteWorkgroup"
     },
     {
       "include":"#comment"
