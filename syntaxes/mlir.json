@@ -270,6 +270,46 @@
     "gpuTestPromoteWorkgroup":{
       "match": "\\bgpu\\.test_promote_workgroup\\b",
       "name": "keyword.other.mlir.gpu-testPromoteWorkgroup"
+    },
+    "nvvmBlockDim":{
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.ntid\\.(x|y|z)\\b",
+      "name": "entity.name.function.mlir.nvvm-blockdim"
+    },
+    "nvvmBlockId":{
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.ctaid\\.(x|y|z)\\b",
+      "name": "entity.name.function.mlir.nvvm-blockdid"
+    },
+    "nvvmGridDim":{
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.nctaid\\.(x|y|z)\\b",
+      "name": "entity.name.function.mlir.nvvm-griddim"
+    },
+    "nvvmLaneId":{
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.laneid\\b",
+      "name": "entity.name.function.mlir.nvvm-laneid"
+    },
+    "nvvmBarrier0":{
+      "match": "\\bnvvm\\.barrier0\\b",
+      "name": "entity.name.function.mlir.nvvm-barrier0"
+    },
+    "nvvmMma":{
+      "match": "\\bnvvm\\.mma\\.sync\\b",
+      "name": "entity.name.function.mlir.nvvm-mma"
+    },
+    "nvvmShflBfly":{
+      "match": "\\bnvvm\\.shfl\\.sync\\.bfly\\b",
+      "name": "entity.name.function.mlir.nvvm-shflbfly"
+    },
+    "nvvmThreadId":{
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.tid\\.(x|y|z)\\b",
+      "name": "entity.name.function.mlir.nvvm-threadid"
+    },
+    "nvvmVoteBallot":{
+      "match": "\\bnvvm\\.vote\\.ballot\\.sync\\b",
+      "name": "entity.name.function.mlir.nvvm-voteballot"
+    },
+    "nvvmWarpSize":{
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.warpsize\\b",
+      "name": "entity.name.function.mlir.warpsize"
     }
   },
   "patterns":[
@@ -402,6 +442,36 @@
     },
     {
       "include": "#gpuTestPromoteWorkgroup"
+    },
+    {
+      "include": "#nvvmBlockDim"
+    },
+    {
+      "include": "#nvvmBlockId"
+    },
+    {
+      "include": "#nvvmGridDim"
+    },
+    {
+      "include": "#nvvmLaneId"
+    },
+    {
+      "include": "#nvvmBarrier0"
+    },
+    {
+      "include": "#nvvmMma"
+    },
+    {
+      "include": "#nvvmShflBfly"
+    },
+    {
+      "include": "#nvvmThreadId"
+    },
+    {
+      "include": "#nvvmVoteBallot"
+    },
+    {
+      "include": "#nvvmWarpSize"
     },
     {
       "include":"#comment"
