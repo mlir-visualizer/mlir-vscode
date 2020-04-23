@@ -291,6 +291,10 @@
       "match" : "\\btile\\.(constant|contract|index|reshape)\\b",
       "name": "entity.name.function.mlir.tileFunctions"
     },
+    "tileQuotedFunctions":{
+      "match" : "(?<=\\W)\"tile\\.(constant|contract|index|reshape)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tileFunctions"
+    },
     "tileKeywords": {
       "match": "\\btile\\.(name)\\b",
       "name": "keyword.other.mlir.tileKeywords"
@@ -498,6 +502,9 @@
     },
     {
       "include": "#tileFunctions"
+    },
+    {
+      "include": "#tileQuotedFunctions"
     },
     {
       "include": "#tileKeywords"
