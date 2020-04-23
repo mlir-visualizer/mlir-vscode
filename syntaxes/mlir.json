@@ -287,6 +287,14 @@
       "match" : "\\bloop\\.(for|if|parallel|reduce|yield)\\b",
       "name": "entity.name.function.mlir.loopOps"
     },
+    "tileFunctions":{
+      "match" : "\\btile\\.(constant|contract|index|reshape)\\b",
+      "name": "entity.name.function.mlir.tileFunctions"
+    },
+    "tileKeywords": {
+      "match": "\\btile\\.(name)\\b",
+      "name": "keyword.other.mlir.tileKeywords"
+    },
     "CHECK": {
       "match": "(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
       "captures": {
