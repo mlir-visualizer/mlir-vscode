@@ -24,14 +24,9 @@
       },
       "name": "meta.identifier.mlir"
     },
-    "integer": {
-      "match": "[\\W]([0-9]+)(?!x|[0-9])",
-      "captures": {
-        "1": {
-          "name": "constant.numeric.mlir"
-        }
-      },
-      "name": "meta.identifier.mlir"
+    "numbers": {
+      "match": "(?<=\\W|e|E)(-)?([0-9]+)(((x|-)[0-9]+)*|\\.[0-9]+)(?=\\W|e|E)",
+      "name": "constant.numeric.mlir"
     },
     "string": {
       "end": "\"",
@@ -68,64 +63,229 @@
       "name": "meta.types.simple.mlir"
     },
     "memref-size": {
-      "match": "(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8)\\b",
-      "name": "storage.type.mlir.size"
+      "match": "(?<=<)\\s*(((\\?|[1-9][0-9]*)\\s*x\\s*)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8|!quant\\.uniform|vector|tensor|memref|!)\\b",
+      "captures":{
+        "0":{
+          "name": "storage.type.mlir.size"
+        },
+        "1":{
+          "name":"constant.numeric.size.mlir"
+        }
+      },
+      "name": "meta.type.mlir.size"
     },
-    "affine-for": {
-      "match": "\\baffine\\.for\\b",
-      "name": "entity.name.function.mlir.affine-for"
+    "affineOps": {
+      "match": "\\baffine\\.(for|apply|if|load|store|dma_start|dma_wait|min|max|parallel|prefetch)\\b",
+      "name": "entity.name.function.mlir.affineOps"
     },
-    "affine-apply": {
-      "match": "\\baffine\\.apply\\b",
-      "name": "entity.name.function.mlir.affine-apply"
+    "affineOpsP": {
+      "match": "(?<=\\W)\"affine\\.(for|apply|if|load|store|dma_start|dma_wait|min|max|parallel|prefetch)\"(?=\\W)",
+      "name": "entity.name.function.mlir.affineOpsP"
     },
-    "affine-if": {
-      "match": "\\baffine\\.if\\b",
-      "name": "entity.name.function.mlir.affine-if"
+    "affineStructures": {
+      "match": "\\baffine_(map|set)\\b",
+      "name": "entity.name.function.mlir.affineStructures"
     },
-    "affine-else": {
-      "match": "\\belse\\b",
-      "name": "entity.name.function.mlir.affine-else"
+    "llvmType": {
+      "match": "(^!llvm|\\s!llvm)[\\.<]",
+      "captures": {
+        "1": {
+          "name": "variable.mlir"
+        }
+      },
+      "name": "meta.types.llvm.mlir"
     },
-    "affine-load": {
-      "match": "\\baffine\\.load\\b",
-      "name": "entity.name.function.mlir.affine-load"
+    "llvmFunc": {
+      "match": "\\bllvm\\.(?=func)",
+      "name": "keyword.function.llvm"
     },
-    "affine-store": {
-      "match": "\\baffine\\.store\\b",
-      "name": "entity.name.function.mlir.affine-store"
+    "llvmReturn": {
+      "match": "\\bllvm\\.return\\b",
+      "name": "keyword.return.llvm"
     },
-    "affine-dma_start": {
-      "match": "\\baffine\\.dma_start\\b",
-      "name": "entity.name.function.mlir.affine-dma_start"
+    "llvmIntArith": {
+      "match": "\\bllvm\\.(add|sub|mul|udiv|sdiv|urem|srem)\\b",
+      "name": "entity.name.function.mlir.llvmIntArithm"
     },
-    "affine-dma_wait": {
-      "match": "\\baffine\\.dma_wait\\b",
-      "name": "entity.name.function.mlir.affine-dma_wait"
+    "llvmFloatArith": {
+      "match": "\\bllvm\\.(fadd|fsub|fmul|fdiv|frem)\\b",
+      "name": "entity.name.function.mlir.llvmFloatArith"
     },
-    "affine-min": {
-      "match": "\\baffine\\.min\\b",
-      "name": "entity.name.function.mlir.affine-min"
+    "llvmMemOp": {
+      "match": "\\bllvm\\.(alloca|getelementptr|load|store)\\b",
+      "name": "entity.name.function.mlir.llvmMemOp"
     },
-    "affine-max": {
-      "match": "\\baffine\\.max\\b",
-      "name": "entity.name.function.mlir.affine-max"
+    "llvmAggregateOp": {
+      "match": "\\bllvm\\.(extractvalue|insertvalue)\\b",
+      "name": "entity.name.function.mlir.llvmAggregateOp"
     },
-    "affine-parallel": {
-      "match": "\\baffine\\.parallel\\b",
-      "name": "entity.name.function.mlir.affine-parallel"
+    "llvmTerminatorOp": {
+      "match": "\\bllvm\\.(br|cond_br|call)\\b",
+      "name": "entity.name.function.mlir.llvmTerminatorOp"
     },
-    "affine-prefetch": {
-      "match": "\\baffine\\.prefetch\\b",
-      "name": "entity.name.function.mlir.affine-prefetch"
+    "llvmComparison": {
+      "match": "\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select|icmp)\\b",
+      "name": "entity.name.function.mlir.llvmComparison"
     },
-    "affine_map": {
-      "match": "\\baffine_map\\b",
-      "name": "entity.name.function.mlir.affine_map"
+    "llvmOps":{
+      "match": "\\bllvm\\.(extractelement|insertelement|shufflevector)\\b",
+      "name":"entity.name.function.mlir.llvmOps"
     },
-    "affine_set": {
-      "match": "\\baffine_set\\b",
-      "name": "entity.name.function.mlir.affine_set"
+    "llvmMLIR": {
+      "match": "\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
+      "captures": {
+        "1": {
+          "name": "keyword.other.llvm"
+        },
+        "2": {
+          "name": "entity.name.function.mlir.auxilary"
+        }
+      },
+      "name": "meta.llvm.mlirAuxilary"
+    },
+    "gpuFunc": {
+      "match": "\\bgpu\\.(?=func)",
+      "name": "keyword.function.mlir.gpu"
+    },
+    "gpuReturn": {
+      "match": "\\bgpu\\.return\\b",
+      "name": "keyword.return.mlir.gpu"
+    },
+    "gpuModules": {
+      "match": "\\bgpu\\.(module|container_module|kernel_module)\\b",
+      "name": "keyword.other.mlir.gpu-modules"
+    },
+    "gpuKernel": {
+      "match": "\\bgpu\\.kernel\\b",
+      "name": "keyword.other.mlir.gpu-kernel"
+    },
+    "gpuOpsP": {
+      "match": "(?<=\\W)\"gpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\"(?=\\W)",
+      "name": "entity.name.function.mlir.gpuOpsP"
+    },
+    "gpuOps":{
+      "match": "\\bgpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\\b",
+      "name": "entity.name.function.mlir.gpuOpsP"
+    },
+    "gpuLaunchAndTerminator": {
+      "match": "\\bgpu\\.(launch|terminator)\\b",
+      "name": "keyword.other.mlir.gpu-launchAndTerminator"
+    },
+    "gpuTestPromoteWorkgroup": {
+      "match": "\\bgpu\\.test_promote_workgroup\\b",
+      "name": "keyword.other.mlir.gpu-testPromoteWorkgroup"
+    },
+    "nvvmID": {
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.(tid|ntid|ctaid|nctaid)\\.(x|y|z)\\b",
+      "name": "entity.name.function.mlir.nvvm-id"
+    },
+    "nvvmLaneId": {
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.laneid\\b",
+      "name": "entity.name.function.mlir.nvvm-laneid"
+    },
+    "nvvmBarrier0": {
+      "match": "\\bnvvm\\.barrier0\\b",
+      "name": "entity.name.function.mlir.nvvm-barrier0"
+    },
+    "nvvmMma": {
+      "match": "\\bnvvm\\.mma\\.sync\\b",
+      "name": "entity.name.function.mlir.nvvm-mma"
+    },
+    "nvvmShflBfly": {
+      "match": "\\bnvvm\\.shfl\\.sync\\.bfly\\b",
+      "name": "entity.name.function.mlir.nvvm-shflbfly"
+    },
+    "nvvmVoteBallot": {
+      "match": "\\bnvvm\\.vote\\.ballot\\.sync\\b",
+      "name": "entity.name.function.mlir.nvvm-voteballot"
+    },
+    "nvvmWarpSize": {
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.warpsize\\b",
+      "name": "entity.name.function.mlir.warpsize"
+    },
+    "tflMath": {
+      "match": "(?<=\\W)\"tfl\\.(abs|add_n|add|cos|div|exp|floor_div|floor_mod|floor|log|log_softmax|mul|pow|round|rsqrt|sin|softmax|sqrt|square|squared_difference|sub|sum|tanh)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tfl_math"
+    },
+    "tflLogic":{
+      "match": "(?<=\\W)\"tfl\\.(equal|greater_equal|greater|less_equal|less|logical_and|logical_not|logical_or|neg|not_equal|select|select_v2|where)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflLogic"
+    },
+    "tflStats": {
+      "match": "(?<=\\W)\"tfl\\.(arg_max|arg_min|average_pool_2d|max_pool_2d|max_pooling_with_argmax_2d|max_unpooling_2d|maximum|mean|minimum|non_max_suppression_(v4|v5))\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflStats"
+    },
+    "tflConv": {
+      "match": "(?<=\\W)\"tfl\\.(conv_2d|convolution_2d_transpose_bias|depthwise_conv_2d|transpose_conv)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflConv"
+    },
+    "tflLSTM": {
+      "match": "(?<=\\W)\"tfl\\.(basic_lstm|lstm|unidirectional_sequence_lstm)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflLSTM"
+    },
+    "tflPseudo": {
+      "match": "(?<=\\W)\"tfl\\.(pseudo_const|pseudo_qconst|pseudo_sparse_const|pseudo_sparse_qconst)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflPseudo"
+    },
+    "tflTransformations": {
+      "match": "(?<=\\W)\"tfl\\.(batch_to_space_nd|depth_to_space|expand_dims|resize_bilinear|resize_nearest_neighbor|space_to_batch_nd|space_to_depth|sparse_to_dense)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflReshaping"
+    },
+    "tflRELU": {
+      "match": "(?<=\\W)\"tfl\\.(elu|leaky_relu|prelu|relu_n1_to_1|relu6|relu)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflRELU"
+    },
+    "tflMatrix": {
+      "match": "(?<=\\W)\"tfl\\.(matrix_diag|matrix_set_diag|mirror_pad|pad|padv2|rank|transpose)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflMatrix"
+    },
+    "tflOps": {
+      "match": "(?<=\\W)\"tfl\\.(cast|ceil|concatenation|densify|dequantize|fill|gather_nd|gather|logistic|pack|quantize|range|reshape|svdf|shape|slice|split|split_v|squeeze|tile|unique|unpack|while|yield)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflOps"
+    },
+    "tflLongOps": {
+      "match": "(?<=\\W)\"tfl\\.(embedding_lookup|external_const|fake_quant|fully_connected|hard_swish|NumericVerify|one_hot|segment_sum|strided_slice|topk_v2|zeros_like)\"(<=\\W)",
+      "name": "entity.name.function.mlir.tflLongOps"
+    },
+    "tflNormalization": {
+      "match": "(?<=\\W)\"tfl\\.(l2_normalization|local_response_normalization)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflNormalization"
+    },
+    "tflReduce": {
+      "match": "(?<=\\W)\"tfl\\.(reduce_any|reduce_max|reduce_min|reduce_prod)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflReduce"
+    },
+    "tflSequence": {
+      "match": "(?<=\\W)\"tfl\\.(reverse_sequence|reverse_v2|unidirectional_sequence_rnn)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflSequence"
+    },
+    "vectorOps":{
+      "match": "\\Wvector\\.(broadcast|contract|vectorfma|print|constant_mask|create_mask|shuffle|matrix_multiply|outerproduct|reduction|strided_slice|transpose|type_cast)\\b",
+      "name":"entity.name.function.mlir.vectorOps"
+    },
+    "vectorExtract":{
+      "match" : "\\Wvector\\.(extract|extractelement|extract_slices)\\b",
+      "name": "entity.name.function.mlir.vectorExtract"
+    },
+    "vectorInsert":{
+      "match" : "\\Wvector\\.(insert|insertelement|insert_slices|insert_strided_slice)\\b",
+      "name" : "entity.name.function.mlir.vectorInsert"
+    },
+    "vectorReshape":{
+      "match" : "\\Wvector\\.(reshape|shape_cast)\\b",
+      "name": "entity.name.function.mlir.vectorReshape"
+    },
+    "vectorTransfer":{
+      "match" : "\\Wvector\\.transfer_(read|write)\\b",
+      "name" : "entity.name.function.mlir.vectorTransfer"
+    },
+    "vectorTuple":{
+      "match" : "\\Wvector\\.(tuple|tuple_get)\\b",
+      "name" : "entity.name.function.mlir.vectorTuple"
+    },
+    "loopOps":{
+      "match" : "\\bloop\\.(for|if|parallel|reduce|yield)\\b",
+      "name": "entity.name.function.mlir.loopOps"
     },
     "CHECK": {
       "match": "(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
@@ -147,7 +307,7 @@
       }
     },
     "CHECK-CODE": {
-      "match": "([^0-9a-zA-Z%\"]*)?([0-9a-zA-Z\"\\.%_\\-]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
+      "match": "([^0-9a-zA-Z%\"@]*)?([0-9a-zA-Z\"\\.%_\\-@]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
       "captures": {
         "1": {
           "name": "comment.line.double-slash.mlir"
@@ -197,743 +357,6 @@
           ]
         }
       }
-    },
-    "llvmType": {
-      "match": "(^!llvm|\\s!llvm)[\\.<]",
-      "captures": {
-        "1": {
-          "name": "variable.mlir"
-        }
-      },
-      "name": "meta.types.llvm.mlir"
-    },
-    "llvmFunc": {
-      "match": "\\bllvm\\.func\\b",
-      "name": "keyword.function.llvm"
-    },
-    "llvmReturn": {
-      "match": "\\bllvm\\.return\\b",
-      "name": "keyword.return.llvm"
-    },
-    "llvmIntArith": {
-      "match": "\\bllvm\\.(add|sub|mul|udiv|sdiv|urem|srem)\\b",
-      "name": "entity.name.function.mlir.llvmIntArithm"
-    },
-    "llvmFloatArith": {
-      "match": "\\bllvm\\.(fadd|fsub|fmul|fdiv|frem)\\b",
-      "name": "entity.name.function.mlir.llvmFloatArith"
-    },
-    "llvmMemOp": {
-      "match": "\\bllvm\\.(alloca|getelementptr|load|store)\\b",
-      "name": "entity.name.function.mlir.llvmMemOp"
-    },
-    "llvmAggregateOp": {
-      "match": "\\bllvm\\.(extractvalue|insertvalue)\\b",
-      "name": "entity.name.function.mlir.llvmAggregateOp"
-    },
-    "llvmTerminatorOp": {
-      "match": "\\bllvm\\.(br|cond_br|call)\\b",
-      "name": "entity.name.function.mlir.llvmTerminatorOp"
-    },
-    "llvmComparison": {
-      "match": "\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select)\\b",
-      "name": "entity.name.function.mlir.llvmComparison"
-    },
-    "llvmMLIR": {
-      "match": "\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
-      "captures": {
-        "1": {
-          "name": "keyword.other.llvm"
-        },
-        "2": {
-          "name": "entity.name.function.mlir.auxilary"
-        }
-      },
-      "name": "meta.llvm.mlirAuxilary"
-    },
-    "gpuFunc": {
-      "match": "\\bgpu\\.func\\b",
-      "name": "keyword.function.mlir.gpu"
-    },
-    "gpuReturn": {
-      "match": "\\bgpu\\.return\\b",
-      "name": "keyword.return.mlir.gpu"
-    },
-    "gpuModules": {
-      "match": "\\bgpu\\.(module|container_module|kernel_module)\\b",
-      "name": "keyword.other.mlir.gpu-modules"
-    },
-    "gpuKernel": {
-      "match": "\\bgpu\\.kernel\\b",
-      "name": "keyword.other.mlir.gpu-kernel"
-    },
-    "gpuOps": {
-      "match": "\"?gpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\"?",
-      "name": "entity.name.function.mlir.gpuOps"
-    },
-    "gpuLaunchAndTerminator": {
-      "match": "\\bgpu\\.(launch|terminator)\\b",
-      "name": "keyword.other.mlir.gpu-launchAndTerminator"
-    },
-    "gpuTestPromoteWorkgroup": {
-      "match": "\\bgpu\\.test_promote_workgroup\\b",
-      "name": "keyword.other.mlir.gpu-testPromoteWorkgroup"
-    },
-    "nvvmBlockDim": {
-      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.ntid\\.(x|y|z)\\b",
-      "name": "entity.name.function.mlir.nvvm-blockdim"
-    },
-    "nvvmBlockId": {
-      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.ctaid\\.(x|y|z)\\b",
-      "name": "entity.name.function.mlir.nvvm-blockdid"
-    },
-    "nvvmGridDim": {
-      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.nctaid\\.(x|y|z)\\b",
-      "name": "entity.name.function.mlir.nvvm-griddim"
-    },
-    "nvvmLaneId": {
-      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.laneid\\b",
-      "name": "entity.name.function.mlir.nvvm-laneid"
-    },
-    "nvvmBarrier0": {
-      "match": "\\bnvvm\\.barrier0\\b",
-      "name": "entity.name.function.mlir.nvvm-barrier0"
-    },
-    "nvvmMma": {
-      "match": "\\bnvvm\\.mma\\.sync\\b",
-      "name": "entity.name.function.mlir.nvvm-mma"
-    },
-    "nvvmShflBfly": {
-      "match": "\\bnvvm\\.shfl\\.sync\\.bfly\\b",
-      "name": "entity.name.function.mlir.nvvm-shflbfly"
-    },
-    "nvvmThreadId": {
-      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.tid\\.(x|y|z)\\b",
-      "name": "entity.name.function.mlir.nvvm-threadid"
-    },
-    "nvvmVoteBallot": {
-      "match": "\\bnvvm\\.vote\\.ballot\\.sync\\b",
-      "name": "entity.name.function.mlir.nvvm-voteballot"
-    },
-    "nvvmWarpSize": {
-      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.warpsize\\b",
-      "name": "entity.name.function.mlir.warpsize"
-    },
-    "tfl_abs": {
-      "match": "\\s\"tfl\\.abs\"",
-      "name": "entity.name.function.mlir.tfl_abs"
-    },
-    "tfl_add_n": {
-      "match": "\\s\"tfl\\.add_n\"",
-      "name": "entity.name.function.mlir.tfl_add_n"
-    },
-    "tfl_add": {
-      "match": "\\s\"tfl\\.add\"",
-      "name": "entity.name.function.mlir.tfl_add"
-    },
-    "tfl_arg_max": {
-      "match": "\\s\"tfl\\.arg_max\"",
-      "name": "entity.name.function.mlir.tfl_arg_max"
-    },
-    "tfl_arg_min": {
-      "match": "\\s\"tfl\\.arg_min\"",
-      "name": "entity.name.function.mlir.tfl_arg_min"
-    },
-    "tfl_average_pool_2d": {
-      "match": "\\s\"tfl\\.average_pool_2d\"",
-      "name": "entity.name.function.mlir.tfl_average_pool_2d"
-    },
-    "tfl_basic_lstm": {
-      "match": "\\s\"tfl\\.basic_lstm\"",
-      "name": "entity.name.function.mlir.tfl_basic_lstm"
-    },
-    "tfl_batch_to_space_nd": {
-      "match": "\\s\"tfl\\.batch_to_space_nd\"",
-      "name": "entity.name.function.mlir.tfl_batch_to_space_nd"
-    },
-    "tfl_cast": {
-      "match": "\\s\"tfl\\.cast\"",
-      "name": "entity.name.function.mlir.tfl_cast"
-    },
-    "tfl_ceil": {
-      "match": "\\s\"tfl\\.ceil\"",
-      "name": "entity.name.function.mlir.tfl_ceil"
-    },
-    "tfl_concatenation": {
-      "match": "\\s\"tfl\\.concatenation\"",
-      "name": "entity.name.function.mlir.tfl_concatenation"
-    },
-    "tfl_pseudo_const": {
-      "match": "\\s\"tfl\\.pseudo_const\"",
-      "name": "entity.name.function.mlir.tfl_pseudo_const"
-    },
-    "tfl_conv_2d": {
-      "match": "\\s\"tfl\\.conv_2d\"",
-      "name": "entity.name.function.mlir.tfl_conv_2d"
-    },
-    "tfl_convolution_2d_transpose_bias": {
-      "match": "\\s\"tfl\\.convolution_2d_transpose_bias\"",
-      "name": "entity.name.function.mlir.tfl_convolution_2d_transpose_bias"
-    },
-    "tfl_cos": {
-      "match": "\\s\"tfl\\.cos\"",
-      "name": "entity.name.function.mlir.tfl_cos"
-    },
-    "tfl_densify": {
-      "match": "\\s\"tfl\\.densify\"",
-      "name": "entity.name.function.mlir.tfl_densify"
-    },
-    "tfl_depth_to_space": {
-      "match": "\\s\"tfl\\.depth_to_space\"",
-      "name": "entity.name.function.mlir.tfl_depth_to_space"
-    },
-    "tfl_depthwise_conv_2d": {
-      "match": "\\s\"tfl\\.depthwise_conv_2d\"",
-      "name": "entity.name.function.mlir.tfl_depthwise_conv_2d"
-    },
-    "tfl_dequantize": {
-      "match": "\\s\"tfl\\.dequantize\"",
-      "name": "entity.name.function.mlir.tfl_dequantize"
-    },
-    "tfl_div": {
-      "match": "\\s\"tfl\\.div\"",
-      "name": "entity.name.function.mlir.tfl_div"
-    },
-    "tfl_elu": {
-      "match": "\\s\"tfl\\.elu\"",
-      "name": "entity.name.function.mlir.tfl_elu"
-    },
-    "tfl_embedding_lookup": {
-      "match": "\\s\"tfl\\.embedding_lookup\"",
-      "name": "entity.name.function.mlir.tfl_embedding_lookup"
-    },
-    "tfl_equal": {
-      "match": "\\s\"tfl\\.equal\"",
-      "name": "entity.name.function.mlir.tfl_equal"
-    },
-    "tfl_exp": {
-      "match": "\\s\"tfl\\.exp\"",
-      "name": "entity.name.function.mlir.tfl_exp"
-    },
-    "tfl_expand_dims": {
-      "match": "\\s\"tfl\\.expand_dims\"",
-      "name": "entity.name.function.mlir.tfl_expand_dims"
-    },
-    "tfl_external_const": {
-      "match": "\\s\"tfl\\.external_const\"",
-      "name": "entity.name.function.mlir.tfl_external_const"
-    },
-    "tfl_fake_quant": {
-      "match": "\\s\"tfl\\.fake_quant\"",
-      "name": "entity.name.function.mlir.tfl_fake_quant"
-    },
-    "tfl_fill": {
-      "match": "\\s\"tfl\\.fill\"",
-      "name": "entity.name.function.mlir.tfl_fill"
-    },
-    "tfl_floor_div": {
-      "match": "\\s\"tfl\\.floor_div\"",
-      "name": "entity.name.function.mlir.tfl_floor_div"
-    },
-    "tfl_floor_mod": {
-      "match": "\\s\"tfl\\.floor_mod\"",
-      "name": "entity.name.function.mlir.tfl_floor_mod"
-    },
-    "tfl_floor": {
-      "match": "\\s\"tfl\\.floor_mod\"",
-      "name": "entity.name.function.mlir.tfl_floor"
-    },
-    "tfl_fully_connected": {
-      "match": "\\s\"tfl\\.fully_connected\"",
-      "name": "entity.name.function.mlir.tfl_fully_connected"
-    },
-    "tfl_gather_nd": {
-      "match": "\\s\"tfl\\.gather_nd\"",
-      "name": "entity.name.function.mlir.tfl_gather_nd"
-    },
-    "tfl_gather": {
-      "match": "\\s\"tfl\\.gather\"",
-      "name": "entity.name.function.mlir.tfl_gather"
-    },
-    "tfl_greater_equal": {
-      "match": "\\s\"tfl\\.greater_equal\"",
-      "name": "entity.name.function.mlir.tfl_greater_equal"
-    },
-    "tfl_greater": {
-      "match": "\\s\"tfl\\.greater\"",
-      "name": "entity.name.function.mlir.tfl_greater"
-    },
-    "tfl_hard_swish": {
-      "match": "\\s\"tfl\\.hard_swish\"",
-      "name": "entity.name.function.mlir.tfl_hard_swish"
-    },
-    "tfl_l2_normalization": {
-      "match": "\\s\"tfl\\.hard_swish\"",
-      "name": "entity.name.function.mlir.tfl_l2_normalization"
-    },
-    "tfl_lstm": {
-      "match": "\\s\"tfl\\.lstm\"",
-      "name": "entity.name.function.mlir.tfl_lstm"
-    },
-    "tfl_leaky_relu": {
-      "match": "\\s\"tfl\\.lstm\"",
-      "name": "entity.name.function.mlir.tfl_leaky_relu"
-    },
-    "tfl_less_equal": {
-      "match": "\\s\"tfl\\.less_equal\"",
-      "name": "entity.name.function.mlir.tfl_less_equal"
-    },
-    "tfl_less": {
-      "match": "\\s\"tfl\\.less\"",
-      "name": "entity.name.function.mlir.tfl_less"
-    },
-    "tfl_local_response_normalization": {
-      "match": "\\s\"tfl\\.local_response_normalization\"",
-      "name": "entity.name.function.mlir.tfl_local_response_normalization"
-    },
-    "tfl_log": {
-      "match": "\\s\"tfl\\.log\"",
-      "name": "entity.name.function.mlir.tfl_log"
-    },
-    "tfl_log_softmax": {
-      "match": "\\s\"tfl\\.log_softmax\"",
-      "name": "entity.name.function.mlir.tfl_log_softmax"
-    },
-    "tfl_logical_and": {
-      "match": "\\s\"tfl\\.logical_and\"",
-      "name": "entity.name.function.mlir.tfl_logical_and"
-    },
-    "tfl_logical_not": {
-      "match": "\\s\"tfl\\.logical_not\"",
-      "name": "entity.name.function.mlir.tfl_logical_not"
-    },
-    "tfl_logical_or": {
-      "match": "\\s\"tfl\\.logical_or\"",
-      "name": "entity.name.function.mlir.tfl_logical_or"
-    },
-    "tfl_logistic": {
-      "match": "\\s\"tfl\\.logistic\"",
-      "name": "entity.name.function.mlir.tfl_logistic"
-    },
-    "tfl_matrix_diag": {
-      "match": "\\s\"tfl\\.matrix_diag\"",
-      "name": "entity.name.function.mlir.tfl_matrix_diag"
-    },
-    "tfl_matrix_set_diag": {
-      "match": "\\s\"tfl\\.matrix_set_diag\"",
-      "name": "entity.name.function.mlir.tfl_matrix_set_diag"
-    },
-    "tfl_max_pool_2d": {
-      "match": "\\s\"tfl\\.max_pool_2d\"",
-      "name": "entity.name.function.mlir.tfl_max_pool_2d"
-    },
-    "tfl_max_pooling_with_argmax_2d": {
-      "match": "\\s\"tfl\\.max_pooling_with_argmax_2d\"",
-      "name": "entity.name.function.mlir.tfl_max_pooling_with_argmax_2d"
-    },
-    "tfl_max_unpooling_2d": {
-      "match": "\\s\"tfl\\.max_unpooling_2d\"",
-      "name": "entity.name.function.mlir.tfl_max_unpooling_2d"
-    },
-    "tfl_maximum": {
-      "match": "\\s\"tfl\\.maximum\"",
-      "name": "entity.name.function.mlir.tfl_maximum"
-    },
-    "tfl_mean": {
-      "match": "\\s\"tfl\\.mean\"",
-      "name": "entity.name.function.mlir.tfl_mean"
-    },
-    "tfl_minimum": {
-      "match": "\\s\"tfl\\.minimum\"",
-      "name": "entity.name.function.mlir.tfl_minimum"
-    },
-    "tfl_mirror_pad": {
-      "match": "\\s\"tfl\\.mirror_pad\"",
-      "name": "entity.name.function.mlir.tfl_mirror_pad"
-    },
-    "tfl_mul": {
-      "match": "\\s\"tfl\\.mul\"",
-      "name": "entity.name.function.mlir.tfl_mul"
-    },
-    "tfl_neg": {
-      "match": "\\s\"tfl\\.neg\"",
-      "name": "entity.name.function.mlir.tfl_neg"
-    },
-    "tfl_non_max_suppression_v4": {
-      "match": "\\s\"tfl\\.non_max_suppression_v4\"",
-      "name": "entity.name.function.mlir.tfl_non_max_suppression_v4"
-    },
-    "tfl_non_max_suppression_v5": {
-      "match": "\\s\"tfl\\.non_max_suppression_v5\"",
-      "name": "entity.name.function.mlir.tfl_non_max_suppression_v5"
-    },
-    "tfl_not_equal": {
-      "match": "\\s\"tfl\\.not_equal\"",
-      "name": "entity.name.function.mlir.tfl_not_equal"
-    },
-    "tfl_NumericVerify": {
-      "match": "\\s\"tfl\\.NumericVerify\"",
-      "name": "entity.name.function.mlir.tfl_NumericVerify"
-    },
-    "tfl_one_hot": {
-      "match": "\\s\"tfl\\.one_hot\"",
-      "name": "entity.name.function.mlir.tfl_one_hot"
-    },
-    "tfl_prelu": {
-      "match": "\\s\"tfl\\.prelu\"",
-      "name": "entity.name.function.mlir.tfl_prelu"
-    },
-    "tfl_pack": {
-      "match": "\\s\"tfl\\.pack\"",
-      "name": "entity.name.function.mlir.tfl_pack"
-    },
-    "tfl_pad": {
-      "match": "\\s\"tfl\\.pad\"",
-      "name": "entity.name.function.mlir.tfl_pad"
-    },
-    "tfl_padv2": {
-      "match": "\\s\"tfl\\.pad\"",
-      "name": "entity.name.function.mlir.tfl_padv2"
-    },
-    "tfl_pow": {
-      "match": "\\s\"tfl\\.pow\"",
-      "name": "entity.name.function.mlir.tfl_pow"
-    },
-    "tfl_pseudo_qconst": {
-      "match": "\\s\"tfl\\.pseudo_qconst\"",
-      "name": "entity.name.function.mlir.tfl_pseudo_qconst"
-    },
-    "tfl_quantize": {
-      "match": "\\s\"tfl\\.quantize\"",
-      "name": "entity.name.function.mlir.tfl_quantize"
-    },
-    "tfl_range": {
-      "match": "\\s\"tfl\\.range\"",
-      "name": "entity.name.function.mlir.tfl_range"
-    },
-    "tfl_rank": {
-      "match": "\\s\"tfl\\.rank\"",
-      "name": "entity.name.function.mlir.tfl_rank"
-    },
-    "tfl_reduce_any": {
-      "match": "\\s\"tfl\\.reduce_any\"",
-      "name": "entity.name.function.mlir.tfl_reduce_any"
-    },
-    "tfl_reduce_max": {
-      "match": "\\s\"tfl\\.reduce_any\"",
-      "name": "entity.name.function.mlir.tfl_reduce_max"
-    },
-    "tfl_reduce_min": {
-      "match": "\\s\"tfl\\.reduce_min\"",
-      "name": "entity.name.function.mlir.tfl_reduce_min"
-    },
-    "tfl_reduce_prod": {
-      "match": "\\s\"tfl\\.reduce_prod\"",
-      "name": "entity.name.function.mlir.tfl_reduce_prod"
-    },
-    "tfl_relu_n1_to_1": {
-      "match": "\\s\"tfl\\.relu_n1_to_1\"",
-      "name": "entity.name.function.mlir.tfl_relu_n1_to_1"
-    },
-    "tfl_relu6": {
-      "match": "\\s\"tfl\\.relu6\"",
-      "name": "entity.name.function.mlir.tfl_relu6"
-    },
-    "tfl_relu": {
-      "match": "\\s\"tfl\\.relu\"",
-      "name": "entity.name.function.mlir.tfl_relu"
-    },
-    "tfl_reshape": {
-      "match": "\\s\"tfl\\.reshape\"",
-      "name": "entity.name.function.mlir.tfl_reshape"
-    },
-    "tfl_resize_bilinear": {
-      "match": "\\s\"tfl\\.resize_bilinear\"",
-      "name": "entity.name.function.mlir.tfl_resize_bilinear"
-    },
-    "tfl_resize_nearest_neighbor": {
-      "match": "\\s\"tfl\\.resize_nearest_neighbor\"",
-      "name": "entity.name.function.mlir.tfl_resize_nearest_neighbor"
-    },
-    "tfl_reverse_sequence": {
-      "match": "\\s\"tfl\\.resize_nearest_neighbor\"",
-      "name": "entity.name.function.mlir.tfl_reverse_sequence"
-    },
-    "tfl_reverse_v2": {
-      "match": "\\s\"tfl\\.reverse_v2\"",
-      "name": "entity.name.function.mlir.tfl_reverse_v2"
-    },
-    "tfl_round": {
-      "match": "\\s\"tfl\\.round\"",
-      "name": "entity.name.function.mlir.tfl_round"
-    },
-    "tfl_rsqrt": {
-      "match": "\\s\"tfl\\.round\"",
-      "name": "entity.name.function.mlir.tfl_rsqrt"
-    },
-    "tfl_svdf": {
-      "match": "\\s\"tfl\\.svdf\"",
-      "name": "entity.name.function.mlir.tfl_svdf"
-    },
-    "tfl_segment_sum": {
-      "match": "\\s\"tfl\\.svdf\"",
-      "name": "entity.name.function.mlir.tfl_segment_sum"
-    },
-    "tfl_select": {
-      "match": "\\s\"tfl\\.select\"",
-      "name": "entity.name.function.mlir.tfl_select"
-    },
-    "tfl_select_v2": {
-      "match": "\\s\"tfl\\.select_v2\"",
-      "name": "entity.name.function.mlir.tfl_select_v2"
-    },
-    "tfl_shape": {
-      "match": "\\s\"tfl\\.shape\"",
-      "name": "entity.name.function.mlir.tfl_shape"
-    },
-    "tfl_sin": {
-      "match": "\\s\"tfl\\.sin\"",
-      "name": "entity.name.function.mlir.tfl_sin"
-    },
-    "tfl_slice": {
-      "match": "\\s\"tfl\\.slice\"",
-      "name": "entity.name.function.mlir.tfl_slice"
-    },
-    "tfl_softmax": {
-      "match": "\\s\"tfl\\.slice\"",
-      "name": "entity.name.function.mlir.tfl_softmax"
-    },
-    "tfl_space_to_batch_nd": {
-      "match": "\\s\"tfl\\.space_to_batch_nd\"",
-      "name": "entity.name.function.mlir.tfl_space_to_batch_nd"
-    },
-    "tfl_space_to_depth": {
-      "match": "\\s\"tfl\\.space_to_depth\"",
-      "name": "entity.name.function.mlir.tfl_space_to_depth"
-    },
-    "tfl_pseudo_sparse_const": {
-      "match": "\\s\"tfl\\.pseudo_sparse_const\"",
-      "name": "entity.name.function.mlir.tfl_pseudo_sparse_const"
-    },
-    "tfl_pseudo_sparse_qconst": {
-      "match": "\\s\"tfl\\.pseudo_sparse_qconst\"",
-      "name": "entity.name.function.mlir.tfl_pseudo_sparse_qconst"
-    },
-    "tfl_sparse_to_dense": {
-      "match": "\\s\"tfl\\.sparse_to_dense\"",
-      "name": "entity.name.function.mlir.tfl_sparse_to_dense"
-    },
-    "tfl_split": {
-      "match": "\\s\"tfl\\.sparse_to_dense\"",
-      "name": "entity.name.function.mlir.tfl_split"
-    },
-    "tfl_split_v": {
-      "match": "\\s\"tfl\\.split_v\"",
-      "name": "entity.name.function.mlir.tfl_split_v"
-    },
-    "tfl_sqrt": {
-      "match": "\\s\"tfl\\.sqrt\"",
-      "name": "entity.name.function.mlir.tfl_sqrt"
-    },
-    "tfl_square": {
-      "match": "\\s\"tfl\\.square\"",
-      "name": "entity.name.function.mlir.tfl_square"
-    },
-    "tfl_squared_difference": {
-      "match": "\\s\"tfl\\.squared_difference\"",
-      "name": "entity.name.function.mlir.tfl_squared_difference"
-    },
-    "tfl_squeeze": {
-      "match": "\\s\"tfl\\.squeeze\"",
-      "name": "entity.name.function.mlir.tfl_squeeze"
-    },
-    "tfl_strided_slice": {
-      "match": "\\s\"tfl\\.strided_slice\"",
-      "name": "entity.name.function.mlir.tfl_strided_slice"
-    },
-    "tfl_sub": {
-      "match": "\\s\"tfl\\.sub\"",
-      "name": "entity.name.function.mlir.tfl_sub"
-    },
-    "tfl_sum": {
-      "match": "\\s\"tfl\\.sum\"",
-      "name": "entity.name.function.mlir.tfl_sum"
-    },
-    "tfl_tanh": {
-      "match": "\\s\"tfl\\.tanh\"",
-      "name": "entity.name.function.mlir.tfl_tanh"
-    },
-    "tfl_tile": {
-      "match": "\\s\"tfl\\.tile\"",
-      "name": "entity.name.function.mlir.tfl_tile"
-    },
-    "tfl_topk_v2": {
-      "match": "\\s\"tfl\\.topk_v2\"",
-      "name": "entity.name.function.mlir.tfl_topk_v2"
-    },
-    "tfl_transpose_conv": {
-      "match": "\\s\"tfl\\.transpose_conv\"",
-      "name": "entity.name.function.mlir.tfl_transpose_conv"
-    },
-    "tfl_transpose": {
-      "match": "\\s\"tfl\\.transpose\"",
-      "name": "entity.name.function.mlir.tfl_transpose"
-    },
-    "tfl_unidirectional_sequence_lstm": {
-      "match": "\\s\"tfl\\.unidirectional_sequence_lstm\"",
-      "name": "entity.name.function.mlir.tfl_unidirectional_sequence_lstm"
-    },
-    "tfl_unidirectional_sequence_rnn": {
-      "match": "\\s\"tfl\\.unidirectional_sequence_rnn\"",
-      "name": "entity.name.function.mlir.tfl_unidirectional_sequence_rnn"
-    },
-    "tfl_unique": {
-      "match": "\\s\"tfl\\.unique\"",
-      "name": "entity.name.function.mlir.tfl_unique"
-    },
-    "tfl_unpack": {
-      "match": "\\s\"tfl\\.unpack\"",
-      "name": "entity.name.function.mlir.tfl_unpack"
-    },
-    "tfl_where": {
-      "match": "\\s\"tfl\\.where\"",
-      "name": "entity.name.function.mlir.tfl_where"
-    },
-    "tfl_while": {
-      "match": "\\s\"tfl\\.while\"",
-      "name": "entity.name.function.mlir.tfl_while"
-    },
-    "tfl_yield": {
-      "match": "\\s\"tfl\\.yield\"",
-      "name": "entity.name.function.mlir.tfl_yield"
-    },
-    "tfl_zeros_like": {
-      "match": "\\s\"tfl\\.abs\"",
-      "name": "entity.name.function.mlir.tfl_zeros_like"
-    },
-    "vectorBroadcast":{
-      "match": "\\Wvector\\.broadcast\\b",
-      "name":"entity.name.function.mlir.vector_broadcast"
-    },
-    "vectorConstant_mask":{
-      "match" :"\\Wvector\\.constant_mask\\b",
-      "name": "entity.name.function.mlir.vector_constantmask"
-    },
-    "vectorContract":{
-      "match": "\\Wvector\\.contract\\b",
-      "name":"entity.name.function.mlir.vector_contract"
-    },
-    "vectorCreate_mask":{
-      "match" : "\\Wvector\\.create_mask\\b",
-      "name": "entity.name.function.mlir.vector_createmask"
-    },
-    "vectorExtractElement":{
-      "match" : "\\W(vector|llvm)\\.extractelement\\b",
-      "name": "entity.name.function.mlir.vector_extractelement"
-    },
-    "vectorExtract":{
-      "match" : "\\Wvector\\.extract\\b",
-      "name" : "entity.name.function.mlir.vector_extract"
-    },
-    "vectorExtract_slices":{
-      "match" : "\\Wvector\\.extract_slices\\b",
-      "name": "entity.name.function.mlir.vector_extractSlices"
-    },
-    "vectorFma":{
-      "match" : "\\Wvector\\.vectorfma\\b",
-      "name": "entity.name.function.mlir.vector_fma"
-    },
-    "vectorInsertElement":{
-      "match" : "\\W(vector|llvm)\\.insertelement\\b",
-      "name" : "entity.name.function.mlir.vector_insertElement"
-    },
-    "vectorInsert":{
-      "match" : "\\Wvector\\.insert\\b",
-      "name" :"entity.name.function.mlir.vector_insert"
-    },
-    "vectorInsert_slices":{
-      "match":"\\Wvector\\.insert_slices\\b",
-      "name" : "entity.name.function.mlir.vector_insertSlices"
-    },
-    "vectorInsert_strided_slice":{
-      "match" : "\\Wvector\\.insert_strided_slice\\b",
-      "name" : "entity.name.function.mlir.vector_insertStridedSlice"
-    },
-    "vectorMatrixMult":{
-      "match" : "\\Wvector\\.matrix_multiply\\b",
-      "name" : "entity.name.function.mlir.vector_matrixmult"
-    },
-    "vectorOuterproduct":{
-      "match": "\\Wvector\\.outerproduct\\b",
-      "name": "entity.name.function.mlir.vector_outerproduct"
-    },
-    "vectorPrint":{
-      "match" : "\\Wvector\\.print\\b",
-      "name" : "entity.name.function.mlir.vector_print" 
-    },
-    "vectorReduction":{
-      "match" : "\\Wvector\\.reduction\\b",
-      "name" : "entity.name.function.mlir.vector_reduction"
-    },
-    "vectorReshape":{
-      "match" : "\\Wvector\\.reshape\\b",
-      "name": "entity.name.function.mlir.vector_reshape"
-    },
-    "vectorReshape_cast":{
-      "match" : "\\Wvector\\.shape_cast\\b",
-      "name" : "entity.name.function.mlir.vector_reshapeCast"
-    },
-    "vectorShuffle":{
-      "match" : "\\Wvector\\.shuffle\\b",
-      "name" : "entity.name.function.mlir.vector_shuffle"
-    },
-    "vectorStrided_slice":{
-      "match" : "\\Wvector\\.strided_slice\\b",
-      "name" : "entity.name.function.mlir.vector_stridedSlice"
-    },
-    "vectorTransfer_read":{
-      "match" : "\\Wvector\\.transfer_read\\b",
-      "name" : "entity.name.function.mlir.vector_transferRead"
-    },
-    "vectorTransfer_write":{
-      "match" : "\\Wvector\\.transfer_write\\b",
-      "name" : "entity.name.function.mlir.vector_transferWrite"
-    },
-    "vectorTranspose":{
-      "match" : "\\Wvector\\.transpose\\b",
-      "name" : "entity.name.function.mlir.vector_transpose"
-    },
-    "vectorTuple_get":{
-      "match" : "\\Wvector\\.tuple_get\\b",
-      "name" : "entity.name.function.mlir.vector_tupleGet"
-    },
-    "vectorTuple":{
-      "match" : "\\Wvector\\.tuple\\b",
-      "name" : "entity.name.function.mlir.vector_tuple"
-    },
-    "vectorTypecast":{
-      "match" : "\\Wvector\\.type_cast\\b",
-      "name": "entity.name.function.mlir.vector_typeCast"
-    },
-    "loopFor":{
-      "match" : "\\bloop\\.for\\b",
-      "name": "entity.name.function.mlir.loop_for"
-    },
-    "loopIf":{
-      "match" : "\\bloop\\.if\\b",
-      "name" : "entity.name.function.mlir.loop_if"
-    },
-    "loopParallel":{
-      "match" : "\\bloop\\.parallel\\b",
-      "name": "entity.name.function.mlir.loop_parallel"
-    },
-    "loopReduce":{
-      "match" : "\\bloop\\.reduce\\b",
-      "name": "entity.name.function.mlir.loop_reduce"
-    },
-    "loopYield":{
-      "match" : "\\bloop\\.yield\\b",
-      "name" : "entity.name.function.mlir.loop_yield"
     }
   },
   "patterns": [
@@ -966,49 +389,19 @@
       "include": "#memref-size"
     },
     {
-      "include": "#integer"
+      "include": "#numbers"
     },
     {
-      "include": "#affine-for"
+      "include": "#affineOps"
     },
     {
-      "include": "#affine-apply"
+      "include": "#affineOpsP"
     },
     {
-      "include": "#affine-if"
+      "include": "#affineStructures"
     },
     {
-      "include": "#affine-else"
-    },
-    {
-      "include": "#affine-load"
-    },
-    {
-      "include": "#affine-store"
-    },
-    {
-      "include": "#affine-dma_start"
-    },
-    {
-      "include": "#affine-dma_wait"
-    },
-    {
-      "include": "#affine-min"
-    },
-    {
-      "include": "#affine-max"
-    },
-    {
-      "include": "#affine-parallel"
-    },
-    {
-      "include": "#affine-prefetch"
-    },
-    {
-      "include": "#affine_map"
-    },
-    {
-      "include": "#affine_set"
+      "include": "#else"
     },
     {
       "include": "#CHECK"
@@ -1044,6 +437,9 @@
       "include": "#llvmMLIR"
     },
     {
+      "include": "#llvmOps"
+    },
+    {
       "include": "#gpuFunc"
     },
     {
@@ -1056,6 +452,9 @@
       "include": "#gpuKernel"
     },
     {
+      "include": "#gpuOpsP"
+    },
+    {
       "include": "#gpuOps"
     },
     {
@@ -1065,13 +464,7 @@
       "include": "#gpuTestPromoteWorkgroup"
     },
     {
-      "include": "#nvvmBlockDim"
-    },
-    {
-      "include": "#nvvmBlockId"
-    },
-    {
-      "include": "#nvvmGridDim"
+      "include": "#nvvmID"
     },
     {
       "include": "#nvvmLaneId"
@@ -1086,475 +479,73 @@
       "include": "#nvvmShflBfly"
     },
     {
-      "include": "#nvvmThreadId"
-    },
-    {
       "include": "#nvvmVoteBallot"
     },
     {
       "include": "#nvvmWarpSize"
     },
     {
-      "include": "#tfl_abs"
+      "include": "#tflMath"
     },
     {
-      "include": "#tfl_add_n"
+      "include": "#tflLogic"
     },
     {
-      "include": "#tfl_add"
+      "include": "#tflStats"
     },
     {
-      "include": "#tfl_arg_max"
+      "include": "#tflConv"
     },
     {
-      "include": "#tfl_arg_min"
+      "include": "#tflLSTM"
     },
     {
-      "include": "#tfl_average_pool_2d"
+      "include": "#tflPseudo"
     },
     {
-      "include": "#tfl_basic_lstm"
+      "include": "#tflTransformations"
     },
     {
-      "include": "#tfl_batch_to_space_nd"
+      "include": "#tflRELU"
     },
     {
-      "include": "#tfl_cast"
+      "include": "#tflMatrix"
     },
     {
-      "include": "#tfl_ceil"
+      "include": "#tflOps"
     },
     {
-      "include": "#tfl_concatenation"
+      "include": "#tflLongOps"
     },
     {
-      "include": "#tfl_pseudo_const"
+      "include": "#tflNormalization"
     },
     {
-      "include": "#tfl_conv_2d"
+      "include": "#tflReduce"
     },
     {
-      "include": "#tfl_convolution_2d_transpose_bias"
+      "include": "#tflSequence"
     },
     {
-      "include": "#tfl_cos"
-    },
-    {
-      "include": "#tfl_densify"
-    },
-    {
-      "include": "#tfl_depth_to_space"
-    },
-    {
-      "include": "#tfl_depthwise_conv_2d"
-    },
-    {
-      "include": "#tfl_dequantize"
-    },
-    {
-      "include": "#tfl_div"
-    },
-    {
-      "include": "#tfl_elu"
-    },
-    {
-      "include": "#tfl_embedding_lookup"
-    },
-    {
-      "include": "#tfl_equal"
-    },
-    {
-      "include": "#tfl_exp"
-    },
-    {
-      "include": "#tfl_expand_dims"
-    },
-    {
-      "include": "#tfl_external_const"
-    },
-    {
-      "include": "#tfl_fake_quant"
-    },
-    {
-      "include": "#tfl_fill"
-    },
-    {
-      "include": "#tfl_floor_div"
-    },
-    {
-      "include": "#tfl_floor_mod"
-    },
-    {
-      "include": "#tfl_floor"
-    },
-    {
-      "include": "#tfl_fully_connected"
-    },
-    {
-      "include": "#tfl_gather_nd"
-    },
-    {
-      "include": "#tfl_gather"
-    },
-    {
-      "include": "#tfl_greater_equal"
-    },
-    {
-      "include": "#tfl_greater"
-    },
-    {
-      "include": "#tfl_hard_swish"
-    },
-    {
-      "include": "#tfl_l2_normalization"
-    },
-    {
-      "include": "#tfl_lstm"
-    },
-    {
-      "include": "#tfl_leaky_relu"
-    },
-    {
-      "include": "#tfl_less_equal"
-    },
-    {
-      "include": "#tfl_less"
-    },
-    {
-      "include": "#tfl_local_response_normalization"
-    },
-    {
-      "include": "#tfl_log"
-    },
-    {
-      "include": "#tfl_log_softmax"
-    },
-    {
-      "include": "#tfl_logical_and"
-    },
-    {
-      "include": "#tfl_logical_not"
-    },
-    {
-      "include": "#tfl_logical_or"
-    },
-    {
-      "include": "#tfl_logistic"
-    },
-    {
-      "include": "#tfl_matrix_diag"
-    },
-    {
-      "include": "#tfl_matrix_set_diag"
-    },
-    {
-      "include": "#tfl_max_pool_2d"
-    },
-    {
-      "include": "#tfl_max_pooling_with_argmax_2d"
-    },
-    {
-      "include": "#tfl_max_unpooling_2d"
-    },
-    {
-      "include": "#tfl_maximum"
-    },
-    {
-      "include": "#tfl_mean"
-    },
-    {
-      "include": "#tfl_minimum"
-    },
-    {
-      "include": "#tfl_mirror_pad"
-    },
-    {
-      "include": "#tfl_mul"
-    },
-    {
-      "include": "#tfl_neg"
-    },
-    {
-      "include": "#tfl_non_max_suppression_v4"
-    },
-    {
-      "include": "#tfl_non_max_suppression_v5"
-    },
-    {
-      "include": "#tfl_not_equal"
-    },
-    {
-      "include": "#tfl_NumericVerify"
-    },
-    {
-      "include": "#tfl_one_hot"
-    },
-    {
-      "include": "#tfl_prelu"
-    },
-    {
-      "include": "#tfl_pack"
-    },
-    {
-      "include": "#tfl_pad"
-    },
-    {
-      "include": "#tfl_padv2"
-    },
-    {
-      "include": "#tfl_pow"
-    },
-    {
-      "include": "#tfl_pseudo_qconst"
-    },
-    {
-      "include": "#tfl_quantize"
-    },
-    {
-      "include": "#tfl_range"
-    },
-    {
-      "include": "#tfl_rank"
-    },
-    {
-      "include": "#tfl_reduce_any"
-    },
-    {
-      "include": "#tfl_reduce_max"
-    },
-    {
-      "include": "#tfl_reduce_min"
-    },
-    {
-      "include": "#tfl_reduce_prod"
-    },
-    {
-      "include": "#tfl_relu_n1_to_1"
-    },
-    {
-      "include": "#tfl_relu6"
-    },
-    {
-      "include": "#tfl_relu"
-    },
-    {
-      "include": "#tfl_reshape"
-    },
-    {
-      "include": "#tfl_resize_bilinear"
-    },
-    {
-      "include": "#tfl_resize_nearest_neighbor"
-    },
-    {
-      "include": "#tfl_reverse_sequence"
-    },
-    {
-      "include": "#tfl_reverse_v2"
-    },
-    {
-      "include": "#tfl_round"
-    },
-    {
-      "include": "#tfl_rsqrt"
-    },
-    {
-      "include": "#tfl_svdf"
-    },
-    {
-      "include": "#tfl_segment_sum"
-    },
-    {
-      "include": "#tfl_select"
-    },
-    {
-      "include": "#tfl_select_v2"
-    },
-    {
-      "include": "#tfl_shape"
-    },
-    {
-      "include": "#tfl_sin"
-    },
-    {
-      "include": "#tfl_slice"
-    },
-    {
-      "include": "#tfl_softmax"
-    },
-    {
-      "include": "#tfl_space_to_batch_nd"
-    },
-    {
-      "include": "#tfl_space_to_depth"
-    },
-    {
-      "include": "#tfl_pseudo_sparse_const"
-    },
-    {
-      "include": "#tfl_pseudo_sparse_qconst"
-    },
-    {
-      "include": "#tfl_sparse_to_dense"
-    },
-    {
-      "include": "#tfl_split"
-    },
-    {
-      "include": "#tfl_split_v"
-    },
-    {
-      "include": "#tfl_sqrt"
-    },
-    {
-      "include": "#tfl_square"
-    },
-    {
-      "include": "#tfl_squared_difference"
-    },
-    {
-      "include": "#tfl_squeeze"
-    },
-    {
-      "include": "#tfl_strided_slice"
-    },
-    {
-      "include": "#tfl_sub"
-    },
-    {
-      "include": "#tfl_sum"
-    },
-    {
-      "include": "#tfl_tanh"
-    },
-    {
-      "include": "#tfl_tile"
-    },
-    {
-      "include": "#tfl_topk_v2"
-    },
-    {
-      "include": "#tfl_transpose_conv"
-    },
-    {
-      "include": "#tfl_transpose"
-    },
-    {
-      "include": "#tfl_unidirectional_sequence_lstm"
-    },
-    {
-      "include": "#tfl_unidirectional_sequence_rnn"
-    },
-    {
-      "include": "#tfl_unique"
-    },
-    {
-      "include": "#tfl_unpack"
-    },
-    {
-      "include": "#tfl_where"
-    },
-    {
-      "include": "#tfl_while"
-    },
-    {
-      "include": "#tfl_yield"
-    },
-    {
-      "include": "#tfl_zeros_like"
-    },
-    {
-      "include": "#vectorBroadcast"
-    },
-    {
-      "include":"#vectorConstant_mask"
-    },
-    {
-      "include":"#vectorContract"
-    },
-    {
-      "include":"#vectorCreate_mask"
-    },
-    {
-      "include": "#vectorExtractElement"
+      "include": "#vectorOps"
     },
     {
       "include": "#vectorExtract"
     },
     {
-      "include": "#vectorExtract_slices"
-    },
-    {
-      "include" :"#vectorFma"
-    },
-    {
-      "include": "#vectorInsertElement"
-    },
-    {
       "include":"#vectorInsert"
-    },
-    {
-      "include":"#vectorInsert_slices"
-    },
-    {
-      "include": "#vectorInsert_strided_slice"
-    },
-    {
-      "include": "#vectorMatrixMult"
-    },
-    {
-      "include":"#vectorOuterproduct"
-    },
-    {
-      "include": "#vectorPrint"
-    },
-    {
-      "include": "#vectorReduction"
     },
     {
       "include":"#vectorReshape"
     },
     {
-      "include": "#vectorReshape_cast"
-    },
-    {
-      "include": "#vectorShuffle"
-    },
-    {
-      "include":"#vectorStrided_slice"
-    },
-    {
-      "include":"#vectorTransfer_read"
-    },
-    {
-      "include": "#vectorTransfer_write"
-    },
-    {
-      "include":"#vectorTranspose"
-    },
-    {
-      "include":"#vectorTuple_get"
+      "include":"#vectorTransfer"
     },
     {
       "include": "#vectorTuple"
     },
     {
-      "include":"#vectorTypecast"
-    },
-    {
-      "include": "#loopFor"
-    },
-    {
-      "include": "#loopIf"
-    },
-    {
-      "include": "#loopParallel"
-    },
-    {
-      "include": "#loopReduce"
-    },
-    {
-      "include": "#loopYield"
+      "include": "#loopOps"
     },
     {
       "include": "#comment"
