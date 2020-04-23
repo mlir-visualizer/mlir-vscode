@@ -63,7 +63,7 @@
       "name": "meta.types.simple.mlir"
     },
     "memref-size": {
-      "match": "(?<=<)\\s*(((\\?|[1-9][0-9]*)\\s*x\\s*)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8|!quant\\.uniform|vector|tensor|memref|!)\\b",
+      "match": "(?<=<)\\s*(((\\?|[1-9][0-9]*)\\s*x\\s*)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8|ui32|si32|!quant\\.uniform|vector|tensor|memref|!)\\b",
       "captures":{
         "0":{
           "name": "storage.type.mlir.size"
