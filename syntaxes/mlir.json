@@ -295,6 +295,10 @@
       "match": "\\btile\\.(name)\\b",
       "name": "keyword.other.mlir.tileKeywords"
     },
+    "eltwiseFunctions":{
+      "match" : "(?<=\\W)\"eltwise\\.(add|div|sconst|cmp_lt|select|sub|exp|cast|neg|mul|sqrt|ident)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tileFunctions"
+    },
     "CHECK": {
       "match": "(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
       "captures": {
@@ -491,6 +495,15 @@
     },
     {
       "include": "#nvvmWarpSize"
+    },
+    {
+      "include": "#tileFunctions"
+    },
+    {
+      "include": "#tileKeywords"
+    },
+    {
+      "include": "#eltwiseFunctions"
     },
     {
       "include": "#tflMath"
