@@ -7,6 +7,13 @@ This extension adds support for MLIR syntax highlighting in VSCode
 Additionally, it supports the following dialects:
 - Affine Dialect
 - LLVM IR Dialect
+- TensorFlow Lite Dialect
+- Tile Dialect
+- gpu Dialect 
+- nvvm Dialect  
+- loop Dialect
+- vector Dialect 
+ 
 
 ## Known Issues
 
