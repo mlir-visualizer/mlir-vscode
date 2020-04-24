@@ -1,331 +1,429 @@
 {
-  "fileTypes":[
+  "fileTypes": [
     "mlir"
   ],
-  "repository":{
-    "attribute":{
-      "match":"\\W[\\w_][\\w\\d_.$]*\\s*=",
-      "name":"meta.attribute.mlir"
+  "repository": {
+    "attribute": {
+      "match": "\\W[\\w_][\\w\\d_.$]*\\s*=",
+      "name": "meta.attribute.mlir"
     },
-    "branch_target":{
-      "match":"\\^bb[\\w\\d_$\\.-]+",
-      "name":"entity.name.label.mlir"
+    "branch_target": {
+      "match": "\\^bb[\\w\\d_$\\.-]+",
+      "name": "entity.name.label.mlir"
     },
-    "comment":{
-      "match":"\/\/.*$",
-      "name":"comment.line.double-slash.mlir"
+    "comment": {
+      "match": "\/\/.*$",
+      "name": "comment.line.double-slash.mlir"
     },
-    "identifier":{
-      "match":"[\\%#@][\\w_][\\w\\d_.$]*",
-      "captures":{
-        "0":{
-          "name":"variable.mlir"
+    "identifier": {
+      "match": "[\\%#@][\\w_][\\w\\d_.$]*",
+      "captures": {
+        "0": {
+          "name": "variable.mlir"
         }
       },
-      "name":"meta.identifier.mlir"
+      "name": "meta.identifier.mlir"
     },
-    "integer":{
-      "match":"[\\W]([0-9]+)(?!x|[0-9])",
-      "captures":{
-        "1":{
-          "name":"constant.numeric.mlir"
+    "numbers": {
+      "match": "(?<=\\W|e|E)(-)?([0-9]+)(((x|-)[0-9]+)*|\\.[0-9]+)(?=\\W|e|E)",
+      "name": "constant.numeric.mlir"
+    },
+    "string": {
+      "end": "\"",
+      "begin": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.mlir"
         }
       },
-      "name":"meta.identifier.mlir"
-    },
-    "string":{
-      "end":"\"",
-      "begin":"\"",
-      "beginCaptures":{
-        "0":{
-          "name":"punctuation.definition.string.begin.mlir"
-        }
-      },
-      "patterns":[
+      "patterns": [
         {
-          "match":"\\\\[nt\"]",
-          "name":"constant.character.escape.mlir"
+          "match": "\\\\[nt\"]",
+          "name": "constant.character.escape.mlir"
         },
         {
-          "match":"\\\\.",
-          "name":"invalid.illegal.mlir"
+          "match": "\\\\.",
+          "name": "invalid.illegal.mlir"
         }
       ],
-      "endCaptures":{
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.mlir"
+        }
+      },
+      "name": "string.quoted.double.mlir"
+    },
+    "types": {
+      "match": "\\b(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|ui32|si32|memref|tensor|vector)\\b",
+      "captures": {
+        "1": {
+          "name": "storage.type.mlir"
+        }
+      },
+      "name": "meta.types.simple.mlir"
+    },
+    "memref-size": {
+      "match": "(?<=<)\\s*(((\\?|[1-9][0-9]*)\\s*x\\s*)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8|ui32|si32|!quant\\.uniform|vector|tensor|memref|!)\\b",
+      "captures":{
         "0":{
-          "name":"punctuation.definition.string.end.mlir"
+          "name": "storage.type.mlir.size"
+        },
+        "1":{
+          "name":"constant.numeric.size.mlir"
         }
       },
-      "name":"string.quoted.double.mlir"
+      "name": "meta.type.mlir.size"
     },
-    "types":{
-      "match":"[\\Wx](index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector)\\b",
-      "captures":{
-        "1":{
-          "name":"storage.type.mlir"
-        }
-      },
-      "name":"meta.types.simple.mlir"
+    "affineOps": {
+      "match": "\\baffine\\.(for|apply|if|load|store|dma_start|dma_wait|min|max|parallel|prefetch)\\b",
+      "name": "entity.name.function.mlir.affineOps"
     },
-    "memref-size":{
-      "match":"(?<=\\W)(((\\?|[1-9][0-9]*)x)*)(i[1-9][0-9]*|f16|bf16|f32|f64|u8)\\b",
-      "name":"storage.type.mlir.size"
+    "affineOpsP": {
+      "match": "(?<=\\W)\"affine\\.(for|apply|if|load|store|dma_start|dma_wait|min|max|parallel|prefetch)\"(?=\\W)",
+      "name": "entity.name.function.mlir.affineOpsP"
     },
-    "affine-for": {
-      "match": "\\baffine\\.for\\b",
-      "name":"entity.name.function.mlir.affine-for"
+    "affineStructures": {
+      "match": "\\baffine_(map|set)\\b",
+      "name": "entity.name.function.mlir.affineStructures"
     },
-    "affine-apply":{
-      "match": "\\baffine\\.apply\\b",
-      "name":"entity.name.function.mlir.affine-apply"
-    },
-    "affine-if":{
-      "match": "\\baffine\\.if\\b",
-      "name": "entity.name.function.mlir.affine-if"
-    },
-    "affine-else":{
-      "match": "\\belse\\b",
-      "name": "entity.name.function.mlir.affine-else"
-    },
-    "affine-load":{
-      "match":"\\baffine\\.load\\b",
-      "name":"entity.name.function.mlir.affine-load"
-    },
-    "affine-store":{
-      "match": "\\baffine\\.store\\b",
-      "name": "entity.name.function.mlir.affine-store"
-    },
-    "affine-dma_start":{
-      "match": "\\baffine\\.dma_start\\b",
-      "name": "entity.name.function.mlir.affine-dma_start"
-    },
-    "affine-dma_wait":{
-      "match": "\\baffine\\.dma_wait\\b",
-      "name":"entity.name.function.mlir.affine-dma_wait"
-    },
-    "affine-min":{
-      "match": "\\baffine\\.min\\b",
-      "name":"entity.name.function.mlir.affine-min"
-    },
-    "affine-max":{
-      "match": "\\baffine\\.max\\b",
-      "name": "entity.name.function.mlir.affine-max"
-    },
-    "affine-parallel":{
-      "match": "\\baffine\\.parallel\\b",
-      "name": "entity.name.function.mlir.affine-parallel"
-    },
-    "affine-prefetch":{
-      "match": "\\baffine\\.prefetch\\b",
-      "name": "entity.name.function.mlir.affine-prefetch"
-    },
-    "affine_map":{
-      "match": "\\baffine_map\\b",
-      "name": "entity.name.function.mlir.affine_map"
-    },
-    "affine_set":{
-      "match": "\\baffine_set\\b",
-      "name": "entity.name.function.mlir.affine_set"
-    },
-    "CHECK":{
-      "match":"(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
-      "captures":{
-        "1":{
-          "name": "comment.line.double-slash.mlir"
-        },
-        "2":{
-          "name": "comment.other.CHECK.mlir"
-        },
-        "3":{
-          "patterns":[{
-            "include": "#CHECK-CODE"
-          }]
-        },
-        "name": "comment.other.CHECK.mlir"
-      }
-    },
-    "CHECK-CODE":{
-      "match":"([^0-9a-zA-Z%\"]*)?([0-9a-zA-Z\"\\.%_\\-]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
-      "captures":{
-        "1":{
-          "name": "comment.line.double-slash.mlir"
-        },
-        "2":{
-          "patterns":[{
-            "include": "$self"
-          },
-          {
-            "match":"(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector|func)\\b",
-            "captures":{
-              "1":{
-                "name": "comment.line.double-slash.mlir"
-              },
-              "2":{
-                "name":"storage.type.mlir"
-              }
-            }
-          },
-          {
-            "match":"\\b([0-9]+)(x.*)?",
-            "captures":{
-              "1":{
-                "name":"constant.numeric.mlir"
-              },
-              "2":{
-                "patterns":[{
-                  "include": "$self"
-                }]
-              }
-            }
-          },
-          {
-            "match":"(.*)",
-            "name": "comment.line.double-slash.mlir"
-          }]
-        },
-        "3":{
-          "patterns":[{
-            "include": "#CHECK-CODE"
-          }]
-        }
-      }
-    },
-    "llvmType":{
-      "match":"(^!llvm|\\s!llvm)[\\.<]",
-      "captures":{
-        "1":{
+    "llvmType": {
+      "match": "(^!llvm|\\s!llvm)[\\.<]",
+      "captures": {
+        "1": {
           "name": "variable.mlir"
         }
       },
       "name": "meta.types.llvm.mlir"
     },
-    "llvmFunc":{
-      "match":"\\bllvm\\.func\\b",
+    "llvmFunc": {
+      "match": "\\bllvm\\.(?=func)",
       "name": "keyword.function.llvm"
     },
-    "llvmReturn":{
+    "llvmReturn": {
       "match": "\\bllvm\\.return\\b",
       "name": "keyword.return.llvm"
     },
-    "llvmIntArith":{
+    "llvmIntArith": {
       "match": "\\bllvm\\.(add|sub|mul|udiv|sdiv|urem|srem)\\b",
-      "name":"entity.name.function.mlir.llvmIntArithm"
+      "name": "entity.name.function.mlir.llvmIntArithm"
     },
-    "llvmFloatArith":{
+    "llvmFloatArith": {
       "match": "\\bllvm\\.(fadd|fsub|fmul|fdiv|frem)\\b",
       "name": "entity.name.function.mlir.llvmFloatArith"
     },
-    "llvmMemOp":{
+    "llvmMemOp": {
       "match": "\\bllvm\\.(alloca|getelementptr|load|store)\\b",
       "name": "entity.name.function.mlir.llvmMemOp"
     },
-    "llvmAggregateOp":{
+    "llvmAggregateOp": {
       "match": "\\bllvm\\.(extractvalue|insertvalue)\\b",
-      "name":"entity.name.function.mlir.llvmAggregateOp"
+      "name": "entity.name.function.mlir.llvmAggregateOp"
     },
-    "llvmTerminatorOp":{
+    "llvmTerminatorOp": {
       "match": "\\bllvm\\.(br|cond_br|call)\\b",
-      "name":"entity.name.function.mlir.llvmTerminatorOp"
+      "name": "entity.name.function.mlir.llvmTerminatorOp"
     },
-    "llvmComparison":{
-      "match":"\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select)\\b",
-      "name":"entity.name.function.mlir.llvmComparison"
+    "llvmComparison": {
+      "match": "\\bllvm\\.(eq|ne|slt|sle|sgt|sge|ult|ule|ugt|uge|bitcast|select|icmp)\\b",
+      "name": "entity.name.function.mlir.llvmComparison"
     },
-    "llvmMLIR":{
-      "match":"\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
-      "captures":{
-        "1":{
-          "name":"keyword.other.llvm"
+    "llvmOps":{
+      "match": "\\bllvm\\.(extractelement|insertelement|shufflevector)\\b",
+      "name":"entity.name.function.mlir.llvmOps"
+    },
+    "llvmMLIR": {
+      "match": "\\b(llvm\\.mlir\\.)((addressof|constant|global|null|undef))",
+      "captures": {
+        "1": {
+          "name": "keyword.other.llvm"
         },
-        "2":{
-          "name":"entity.name.function.mlir.auxilary"
+        "2": {
+          "name": "entity.name.function.mlir.auxilary"
         }
       },
-      "name":"meta.llvm.mlirAuxilary"
+      "name": "meta.llvm.mlirAuxilary"
+    },
+    "gpuFunc": {
+      "match": "\\bgpu\\.(?=func)",
+      "name": "keyword.function.mlir.gpu"
+    },
+    "gpuReturn": {
+      "match": "\\bgpu\\.return\\b",
+      "name": "keyword.return.mlir.gpu"
+    },
+    "gpuModules": {
+      "match": "\\bgpu\\.(module|container_module|kernel_module)\\b",
+      "name": "keyword.other.mlir.gpu-modules"
+    },
+    "gpuKernel": {
+      "match": "\\bgpu\\.kernel\\b",
+      "name": "keyword.other.mlir.gpu-kernel"
+    },
+    "gpuOpsP": {
+      "match": "(?<=\\W)\"gpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\"(?=\\W)",
+      "name": "entity.name.function.mlir.gpuOpsP"
+    },
+    "gpuOps":{
+      "match": "\\bgpu\\.(launch_func|thread_id|block_dim|block_id|grid_dim|all_reduce|yield|shuffle|barrier)\\b",
+      "name": "entity.name.function.mlir.gpuOpsP"
+    },
+    "gpuLaunchAndTerminator": {
+      "match": "\\bgpu\\.(launch|terminator)\\b",
+      "name": "keyword.other.mlir.gpu-launchAndTerminator"
+    },
+    "gpuTestPromoteWorkgroup": {
+      "match": "\\bgpu\\.test_promote_workgroup\\b",
+      "name": "keyword.other.mlir.gpu-testPromoteWorkgroup"
+    },
+    "nvvmID": {
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.(tid|ntid|ctaid|nctaid)\\.(x|y|z)\\b",
+      "name": "entity.name.function.mlir.nvvm-id"
+    },
+    "nvvmLaneId": {
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.laneid\\b",
+      "name": "entity.name.function.mlir.nvvm-laneid"
+    },
+    "nvvmBarrier0": {
+      "match": "\\bnvvm\\.barrier0\\b",
+      "name": "entity.name.function.mlir.nvvm-barrier0"
+    },
+    "nvvmMma": {
+      "match": "\\bnvvm\\.mma\\.sync\\b",
+      "name": "entity.name.function.mlir.nvvm-mma"
+    },
+    "nvvmShflBfly": {
+      "match": "\\bnvvm\\.shfl\\.sync\\.bfly\\b",
+      "name": "entity.name.function.mlir.nvvm-shflbfly"
+    },
+    "nvvmVoteBallot": {
+      "match": "\\bnvvm\\.vote\\.ballot\\.sync\\b",
+      "name": "entity.name.function.mlir.nvvm-voteballot"
+    },
+    "nvvmWarpSize": {
+      "match": "\\bnvvm\\.read\\.ptx\\.sreg\\.warpsize\\b",
+      "name": "entity.name.function.mlir.warpsize"
+    },
+    "tflMath": {
+      "match": "(?<=\\W)\"tfl\\.(abs|add_n|add|cos|div|exp|floor_div|floor_mod|floor|log|log_softmax|mul|pow|round|rsqrt|sin|softmax|sqrt|square|squared_difference|sub|sum|tanh)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tfl_math"
+    },
+    "tflLogic":{
+      "match": "(?<=\\W)\"tfl\\.(equal|greater_equal|greater|less_equal|less|logical_and|logical_not|logical_or|neg|not_equal|select|select_v2|where)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflLogic"
+    },
+    "tflStats": {
+      "match": "(?<=\\W)\"tfl\\.(arg_max|arg_min|average_pool_2d|max_pool_2d|max_pooling_with_argmax_2d|max_unpooling_2d|maximum|mean|minimum|non_max_suppression_(v4|v5))\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflStats"
+    },
+    "tflConv": {
+      "match": "(?<=\\W)\"tfl\\.(conv_2d|convolution_2d_transpose_bias|depthwise_conv_2d|transpose_conv)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflConv"
+    },
+    "tflLSTM": {
+      "match": "(?<=\\W)\"tfl\\.(basic_lstm|lstm|unidirectional_sequence_lstm)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflLSTM"
+    },
+    "tflPseudo": {
+      "match": "(?<=\\W)\"tfl\\.(pseudo_const|pseudo_qconst|pseudo_sparse_const|pseudo_sparse_qconst)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflPseudo"
+    },
+    "tflTransformations": {
+      "match": "(?<=\\W)\"tfl\\.(batch_to_space_nd|depth_to_space|expand_dims|resize_bilinear|resize_nearest_neighbor|space_to_batch_nd|space_to_depth|sparse_to_dense)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflReshaping"
+    },
+    "tflRELU": {
+      "match": "(?<=\\W)\"tfl\\.(elu|leaky_relu|prelu|relu_n1_to_1|relu6|relu)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflRELU"
+    },
+    "tflMatrix": {
+      "match": "(?<=\\W)\"tfl\\.(matrix_diag|matrix_set_diag|mirror_pad|pad|padv2|rank|transpose)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflMatrix"
+    },
+    "tflOps": {
+      "match": "(?<=\\W)\"tfl\\.(cast|ceil|concatenation|densify|dequantize|fill|gather_nd|gather|logistic|pack|quantize|range|reshape|svdf|shape|slice|split|split_v|squeeze|tile|unique|unpack|while|yield)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflOps"
+    },
+    "tflLongOps": {
+      "match": "(?<=\\W)\"tfl\\.(embedding_lookup|external_const|fake_quant|fully_connected|hard_swish|NumericVerify|one_hot|segment_sum|strided_slice|topk_v2|zeros_like)\"(<=\\W)",
+      "name": "entity.name.function.mlir.tflLongOps"
+    },
+    "tflNormalization": {
+      "match": "(?<=\\W)\"tfl\\.(l2_normalization|local_response_normalization)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflNormalization"
+    },
+    "tflReduce": {
+      "match": "(?<=\\W)\"tfl\\.(reduce_any|reduce_max|reduce_min|reduce_prod)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflReduce"
+    },
+    "tflSequence": {
+      "match": "(?<=\\W)\"tfl\\.(reverse_sequence|reverse_v2|unidirectional_sequence_rnn)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tflSequence"
+    },
+    "vectorOps":{
+      "match": "\\Wvector\\.(broadcast|contract|vectorfma|print|constant_mask|create_mask|shuffle|matrix_multiply|outerproduct|reduction|strided_slice|transpose|type_cast)\\b",
+      "name":"entity.name.function.mlir.vectorOps"
+    },
+    "vectorExtract":{
+      "match" : "\\Wvector\\.(extract|extractelement|extract_slices)\\b",
+      "name": "entity.name.function.mlir.vectorExtract"
+    },
+    "vectorInsert":{
+      "match" : "\\Wvector\\.(insert|insertelement|insert_slices|insert_strided_slice)\\b",
+      "name" : "entity.name.function.mlir.vectorInsert"
+    },
+    "vectorReshape":{
+      "match" : "\\Wvector\\.(reshape|shape_cast)\\b",
+      "name": "entity.name.function.mlir.vectorReshape"
+    },
+    "vectorTransfer":{
+      "match" : "\\Wvector\\.transfer_(read|write)\\b",
+      "name" : "entity.name.function.mlir.vectorTransfer"
+    },
+    "vectorTuple":{
+      "match" : "\\Wvector\\.(tuple|tuple_get)\\b",
+      "name" : "entity.name.function.mlir.vectorTuple"
+    },
+    "loopOps":{
+      "match" : "\\bloop\\.(for|if|parallel|reduce|yield)\\b",
+      "name": "entity.name.function.mlir.loopOps"
+    },
+    "tileFunctions":{
+      "match" : "\\btile\\.(constant|contract|index|reshape)\\b",
+      "name": "entity.name.function.mlir.tileFunctions"
+    },
+    "tileQuotedFunctions":{
+      "match" : "(?<=\\W)\"tile\\.(constant|contract|index|reshape)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tileFunctions"
+    },
+    "tileKeywords": {
+      "match": "\\btile\\.(name)\\b",
+      "name": "keyword.other.mlir.tileKeywords"
+    },
+    "eltwiseFunctions":{
+      "match" : "(?<=\\W)\"eltwise\\.(add|div|sconst|cmp_lt|select|sub|exp|cast|neg|mul|sqrt|ident)\"(?=\\W)",
+      "name": "entity.name.function.mlir.tileFunctions"
+    },
+    "CHECK": {
+      "match": "(\/\/)\\s*(CHECK\\s*:|CHECK-\\w+\\s*:)(.*)$",
+      "captures": {
+        "1": {
+          "name": "comment.line.double-slash.mlir"
+        },
+        "2": {
+          "name": "comment.other.CHECK.mlir"
+        },
+        "3": {
+          "patterns": [
+            {
+              "include": "#CHECK-CODE"
+            }
+          ]
+        },
+        "name": "comment.other.CHECK.mlir"
+      }
+    },
+    "CHECK-CODE": {
+      "match": "([^0-9a-zA-Z%\"@]*)?([0-9a-zA-Z\"\\.%_\\-@]*)([^0-9a-zA-Z\"\\.%_\\-].*)?$",
+      "captures": {
+        "1": {
+          "name": "comment.line.double-slash.mlir"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "$self"
+            },
+            {
+              "match": "(\\b|x)(index|i[1-9][0-9]*|f16|bf16|f32|f64|u8|memref|tensor|vector|func)\\b",
+              "captures": {
+                "1": {
+                  "name": "comment.line.double-slash.mlir"
+                },
+                "2": {
+                  "name": "storage.type.mlir"
+                }
+              }
+            },
+            {
+              "match": "\\b([0-9]+)(x.*)?",
+              "captures": {
+                "1": {
+                  "name": "constant.numeric.mlir"
+                },
+                "2": {
+                  "patterns": [
+                    {
+                      "include": "$self"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "match": "(.*)",
+              "name": "comment.line.double-slash.mlir"
+            }
+          ]
+        },
+        "3": {
+          "patterns": [
+            {
+              "include": "#CHECK-CODE"
+            }
+          ]
+        }
+      }
     }
   },
-  "patterns":[
+  "patterns": [
     {
-      "match":"\\b(func)\\b\\s*(@[\\w_][\\w\\d_.$]*)",
-      "captures":{
-        "1":{
-          "name":"keyword.function.mlir"
+      "match": "\\b(func)\\b\\s*(@[\\w_][\\w\\d_.$]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.function.mlir"
         },
-        "2":{
-          "name":"entity.name.function.mlir"
+        "2": {
+          "name": "entity.name.function.mlir"
         }
       },
-      "name":"support.function.mlir"
+      "name": "support.function.mlir"
     },
     {
-      "match":"\\b(attributes|br|call|constant|loc|return)\\b",
-      "name":"keyword.module.mlir"
+      "match": "\\b(attributes|br|call|constant|loc|return)\\b",
+      "name": "keyword.module.mlir"
     },
     {
-      "include":"#identifier"
+      "include": "#identifier"
     },
     {
-      "include":"#branch_target"
+      "include": "#branch_target"
     },
     {
-      "include":"#attribute"
+      "include": "#attribute"
     },
     {
-      "include":"#memref-size"
+      "include": "#memref-size"
     },
     {
-      "include":"#types"
+      "include": "#numbers"
     },
     {
-      "include":"#integer"
+      "include": "#affineOps"
     },
     {
-      "include":"#affine-for"
+      "include": "#affineOpsP"
     },
     {
-      "include":"#affine-apply"
+      "include": "#affineStructures"
     },
     {
-      "include":"#affine-if"
+      "include": "#else"
     },
     {
-      "include":"#affine-else"
+      "include": "#CHECK"
     },
     {
-      "include": "#affine-load"
-    },
-    {
-      "include": "#affine-store"
-    },
-    {
-      "include": "#affine-dma_start"
-    },
-    {
-      "include": "#affine-dma_wait"
-    },
-    {
-      "include": "#affine-min"
-    },
-    {
-      "include": "#affine-max"
-    },
-    {
-      "include":"#affine-parallel"
-    },
-    {
-      "include":"#affine-prefetch"
-    },
-    {
-      "include":"#affine_map"
-    },
-    {
-      "include":"#affine_set"
-    },
-    {
-      "include":"#CHECK"
-    },
-    {
-      "include":"#llvmType"
+      "include": "#llvmType"
     },
     {
       "include": "#llvmFunc"
@@ -355,13 +453,138 @@
       "include": "#llvmMLIR"
     },
     {
-      "include":"#comment"
+      "include": "#llvmOps"
     },
     {
-      "include":"#string"
+      "include": "#gpuFunc"
+    },
+    {
+      "include": "#gpuReturn"
+    },
+    {
+      "include": "#gpuModules"
+    },
+    {
+      "include": "#gpuKernel"
+    },
+    {
+      "include": "#gpuOpsP"
+    },
+    {
+      "include": "#gpuOps"
+    },
+    {
+      "include": "#gpuLaunchAndTerminator"
+    },
+    {
+      "include": "#gpuTestPromoteWorkgroup"
+    },
+    {
+      "include": "#nvvmID"
+    },
+    {
+      "include": "#nvvmLaneId"
+    },
+    {
+      "include": "#nvvmBarrier0"
+    },
+    {
+      "include": "#nvvmMma"
+    },
+    {
+      "include": "#nvvmShflBfly"
+    },
+    {
+      "include": "#nvvmVoteBallot"
+    },
+    {
+      "include": "#nvvmWarpSize"
+    },
+    {
+      "include": "#tileFunctions"
+    },
+    {
+      "include": "#tileQuotedFunctions"
+    },
+    {
+      "include": "#tileKeywords"
+    },
+    {
+      "include": "#eltwiseFunctions"
+    },
+    {
+      "include": "#tflMath"
+    },
+    {
+      "include": "#tflLogic"
+    },
+    {
+      "include": "#tflStats"
+    },
+    {
+      "include": "#tflConv"
+    },
+    {
+      "include": "#tflLSTM"
+    },
+    {
+      "include": "#tflPseudo"
+    },
+    {
+      "include": "#tflTransformations"
+    },
+    {
+      "include": "#tflRELU"
+    },
+    {
+      "include": "#tflMatrix"
+    },
+    {
+      "include": "#tflOps"
+    },
+    {
+      "include": "#tflLongOps"
+    },
+    {
+      "include": "#tflNormalization"
+    },
+    {
+      "include": "#tflReduce"
+    },
+    {
+      "include": "#tflSequence"
+    },
+    {
+      "include": "#vectorOps"
+    },
+    {
+      "include": "#vectorExtract"
+    },
+    {
+      "include":"#vectorInsert"
+    },
+    {
+      "include":"#vectorReshape"
+    },
+    {
+      "include":"#vectorTransfer"
+    },
+    {
+      "include": "#vectorTuple"
+    },
+    {
+      "include": "#loopOps"
+    },
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#string"
     }
   ],
-  "name":"MLIR",
-  "scopeName":"source.mlir"
+  "name": "MLIR",
+  "scopeName": "source.mlir"
 }
-
