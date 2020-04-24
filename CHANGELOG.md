@@ -1,9 +1,14 @@
 # Change Log
 
-All notable changes to the "mlir" extension will be documented in this file.
+## v1.1.0
+- tflite dialect support + tests added  
+- GPU dialect support + tests added  
+- nvvm dialect support + tests added  
+- loop dialect support + tests added  
+- vector dialect support + tests added  
+- tile dialect support + test added  
+- grammar file cleaned up  
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+## v1.0.0
 
 - Initial release
