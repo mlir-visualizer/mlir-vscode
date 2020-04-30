@@ -24,7 +24,7 @@ If you discover any issues, you can create an issue in the [GitHub repo](https:/
 ## Release Notes
 
 ### 1.1.0
-- tflite dialect support + tests added  
+- TensorFlow Lite dialect support + tests added  
 - GPU dialect support + tests added  
 - nvvm dialect support + tests added  
 - loop dialect support + tests added  
